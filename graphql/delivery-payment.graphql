@@ -1,0 +1,10 @@
+query DeliveryAndPayment {
+  deliveryAndPayment {
+    data {
+      attributes {
+        title
+        content
+      }
+    }
+  }
+}

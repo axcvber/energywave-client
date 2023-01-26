@@ -1,0 +1,43 @@
+query InitialData {
+  global {
+    data {
+      attributes {
+        lightLogo {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        darkLogo {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        googleAnalyticsTag
+      }
+    }
+  }
+  contact {
+    data {
+      attributes {
+        email
+        phoneNumbers {
+          id
+          phone
+        }
+        socialNetworks {
+          id
+          icon
+          link
+        }
+        workingHours {
+          id
+          listItem
+        }
+      }
+    }
+  }
+}

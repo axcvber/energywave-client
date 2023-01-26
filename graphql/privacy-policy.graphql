@@ -1,0 +1,10 @@
+query PrivacyPolicy {
+  privacyPolicy {
+    data {
+      attributes {
+        title
+        content
+      }
+    }
+  }
+}

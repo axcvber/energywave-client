@@ -1,0 +1,44 @@
+query Products($categoryId: ID, $sortBy: [String], $start: Int, $limit: Int) {
+  products(
+    filters: { category: { id: { eq: $categoryId } } }
+    sort: $sortBy
+    pagination: { start: $start, limit: $limit }
+  ) {
+    data {
+      id
+      attributes {
+        name
+        status
+        slug
+        image {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        price {
+          price
+          discountPrice
+          discountStartDate
+          discountEndDate
+        }
+        previewOptions {
+          id
+          option
+          description
+        }
+        inStock
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+query GetSimilarProducts($id: ID) {
+  products(filters: { id: { eq: $id } }) {
+    data {
+      id
+      attributes {
+        similars {
+          data {
+            id
+            attributes {
+              name
+              status
+              slug
+              image {
+                data {
+                  attributes {
+                    url
+                    alternativeText
+                  }
+                }
+              }
+              price {
+                price
+                discountPrice
+                discountStartDate
+                discountEndDate
+              }
+              previewOptions {
+                id
+                option
+                description
+              }
+              inStock
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+query ExchangeAndRefund {
+  exchangeAndRefund {
+    data {
+      attributes {
+        title
+        content
+      }
+    }
+  }
+}

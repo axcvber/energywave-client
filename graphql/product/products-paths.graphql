@@ -1,0 +1,10 @@
+query GetProductsPaths {
+  products {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}

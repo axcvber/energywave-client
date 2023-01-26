@@ -1,0 +1,58 @@
+query HomePage {
+  homePage {
+    data {
+      attributes {
+        hero {
+          title
+          description
+          background {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+        }
+        whyUs {
+          title
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          item {
+            id
+            icon {
+              data {
+                attributes {
+                  url
+                  alternativeText
+                }
+              }
+            }
+            description
+          }
+        }
+        faq {
+          title
+          faqItem {
+            id
+            question
+            answer
+          }
+        }
+      }
+    }
+  }
+}

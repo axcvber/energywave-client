@@ -1,0 +1,45 @@
+query GetProductProps($slug: String) {
+  products(filters: { slug: { eq: $slug } }) {
+    data {
+      id
+      attributes {
+        name
+        status
+        image {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        previewOptions {
+          id
+          option
+          description
+        }
+        gallerySlider {
+          data {
+            id
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        price {
+          price
+          discountPrice
+          discountStartDate
+          discountEndDate
+        }
+        inStock
+        fullOptions {
+          id
+          option
+          description
+        }
+      }
+    }
+  }
+}
