@@ -1,141 +1,65 @@
-import { Box, Container, Portal } from '@chakra-ui/react'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import AsyncSelect from 'react-select/async'
-import { ShippingApi } from '../api/shipping-api'
-import { ASelects } from '../components/ASelects'
-import { MemoExampleWrapper } from '../components/ExampleWrapper'
-import { AsyncPaginate, wrapMenuList } from 'react-select-async-paginate'
-import { loadOptions, OptionType } from '../utils/loadOptions'
-import { MenuList as MyList } from '../components/MenuList'
-import SelectWrapper from '../components/SelectWrapper'
-import Select from '../components/Select'
-import CitySelect from '../components/shipping/CitySelect'
+import { Box, Container, Stack } from '@chakra-ui/react'
+import { NextPage } from 'next'
+import { GetStaticProps } from 'next'
+import Image from 'next/image'
+import React from 'react'
+import Heading from '../components/layout/Heading'
+import Markdown from '../components/layout/Markdown'
+import SeoSingle from '../components/seo/SeoSingle'
+import { AboutPage, GetAboutPageDocument, GetAboutPageQuery } from '../generated'
+import client from '../graphql/apollo-client'
 
-const AboutUsPage = () => {
-  const [options, setOptions] = useState<any>([])
-  const [warehousesOptions, setWarehousesOptions] = useState<any>([])
+interface IAboutUsPage {
+  pageData: AboutPage
+}
 
-  const [pageNo, setPage] = useState(0)
-  const [hasNextPage, setHasNextPage] = useState(true)
-  const [isNextPageLoading, setNextPageLoading] = useState(false)
-  const [selectedValue, setSelectedOption] = useState('')
-
-  const [selectedCity, setSelectedCity] = useState()
-  console.log('selectedCity', selectedCity)
-  const ref = React.useRef()
-  const loadWarehouses = async (page: number) => {
-    try {
-      setNextPageLoading(true)
-
-      const { data, info }: any = await ShippingApi.getWarehouses({ page, cityRef: selectedCity.value })
-      console.log('loadWarehousesdata', data)
-      console.log('selectedValue', selectedCity.value)
-
-      const dataOptions = data.map(({ Ref, Description }: any) => ({
-        label: Description,
-        value: Ref,
-      }))
-
-      const itemsData = warehousesOptions.concat(dataOptions)
-      setWarehousesOptions(dataOptions)
-      // const itemsData = options.concat(dataOptions)
-
-      setHasNextPage(itemsData.length < info.totalCount)
-
-      setNextPageLoading(false)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-  // const loadNextPage = async () => {
-  //   await loadOptions(pageNo + 1)
-  // }
-
-  // const loadNextPage = async () => {
-  //   await loadOptions(pageNo + 1)
-  // }
-
-  // const promiseOptions = async (inputValue: string) => {
-  //   try {
-  //     const params = {
-  //       page: 1,
-  //       size: 50,
-  //     }
-  //     const {
-  //       data: { data, info },
-  //     } = await axios({
-  //       method: 'POST',
-  //       url: process.env.SHIPPING_SERVICE_API,
-  //       data: {
-  //         apiKey: process.env.SHIPPING_SERVICE_API_KEY,
-  //         modelName: 'Address',
-  //         calledMethod: 'getCities',
-  //         methodProperties: {
-  //           Page: params.page,
-  //           // FindByString: inputValue,
-  //           Limit: params.size,
-  //         },
-  //       },
-  //     })
-  //     const dataOptions = data.map(({ CityID, Description }: any) => ({
-  //       label: Description,
-  //       value: CityID,
-  //     }))
-  //     return dataOptions
-  //   } catch (error) {
-  //     console.log(err)
-  //   }
-  // }
-
-  const loadNextPageWarehouses = async () => {
-    await loadWarehouses(pageNo + 1)
-  }
-
-  useEffect(() => {
-    const loadNextPageWarehouses = async () => {
-      await loadWarehouses(pageNo + 1)
-    }
-    loadNextPageWarehouses()
-  }, [selectedCity])
-  const options2 = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ]
+const AboutUsPage: NextPage<IAboutUsPage> = ({ pageData }) => {
   return (
-    <Container maxW='md'>
-      {/* <AsyncSelect options={options2} /> */}
+    <>
+      <SeoSingle seo={pageData.seo} />
+      <Container>
+        <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 3, md: 6 }} mt={{ base: 4, md: 6 }}>
+          <Stack width={{ base: '100%', md: '50%' }} spacing={3}>
+            <Heading title={pageData.title} withLine />
+            <Markdown content={pageData.content} />
+          </Stack>
 
-      <CitySelect value={selectedCity} onChange={setSelectedCity} />
-
-      {/* <Select
-        value={selectedValue}
-        inputValue={''}
-        placeholder='Отделение'
-        hasNextPage={hasNextPage}
-        isNextPageLoading={isNextPageLoading}
-        options={warehousesOptions}
-        loadNextPage={loadNextPageWarehouses}
-        onChange={(selected: any) => setSelectedOption(selected)}
-        onInputChange={() => {}}
-      /> */}
-    </Container>
+          <Box
+            sx={{
+              width: { base: '100%', md: '50%' },
+            }}
+          >
+            <Image
+              priority
+              width={500}
+              height={350}
+              src={pageData.image.data!.attributes!.url}
+              blurDataURL={pageData.image.data!.attributes!.url}
+              placeholder='blur'
+              alt={pageData.image.data!.attributes!.alternativeText || ''}
+              style={{
+                width: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        </Stack>
+      </Container>
+    </>
   )
 }
 
-const height = 35
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query<GetAboutPageQuery>({
+    query: GetAboutPageDocument,
+  })
 
-// const MenuList = (props: any) => {
-//   const { options, children, maxHeight, getValue } = props
-//   const [value] = getValue()
-//   const initialOffset = options.indexOf(value) * height
-
-//   return (
-//     <List width={'100%'} height={300} itemCount={children.length} itemSize={height}>
-//       {({ index, style }) => <div style={style}>{children[index]}</div>}
-//     </List>
-//   )
-// }
+  return {
+    props: {
+      pageData: data.aboutPage?.data?.attributes,
+    },
+    revalidate: 60,
+  }
+}
 
 export default AboutUsPage

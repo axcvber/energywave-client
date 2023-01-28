@@ -1,21 +1,14 @@
-import { Box, IconButton, Stack, Text, useDisclosure } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import { Box, IconButton, Stack, Text } from '@chakra-ui/react'
+import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { FiShoppingCart } from 'react-icons/fi'
-import Image from 'next/image'
-import { numberWithSpaces } from '../../utils/numberWithSpaces'
 import { showModal } from '../../store/slices/modalSlice'
 import { MODAL_TYPES } from '../modals/ModalWrapper'
+import { getTotalQuantity } from '../../store/slices/cartSlice'
 
-const CartIcon = () => {
-  const { cartItems } = useAppSelector((state) => state.cart)
+const CartIcon: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = true }) => {
+  const totalQuantity = useAppSelector(getTotalQuantity)
   const dispatch = useAppDispatch()
-  const totalQuantity = Object.values(cartItems).reduce((sum, cur) => (sum += cur.quantity), 0)
-
-  // const totalPrice = Object.values(cartItems).reduce((sum, cur) => {
-  //   const { name, quantity} = cur;
-  //   return sum += cartItems?.find(p => p.name === name)?.price?.price * quantity;
-  // }, 0);
 
   const onOpenCartModal = () => {
     dispatch(
@@ -31,9 +24,15 @@ const CartIcon = () => {
         <IconButton
           size={'sm'}
           variant={'ghost'}
-          aria-label='Search database'
-          icon={<FiShoppingCart fontSize={20} />}
+          aria-label='Open cart'
+          icon={<FiShoppingCart fontSize={22} />}
           onClick={onOpenCartModal}
+          _hover={{
+            bg: isScrolledNav ? 'brand.50' : 'brand.900',
+          }}
+          _active={{
+            bg: isScrolledNav ? 'brand.50' : 'brand.900',
+          }}
         />
         {totalQuantity > 0 && (
           <Stack
@@ -44,12 +43,14 @@ const CartIcon = () => {
             right={-1}
             bg={'red.500'}
             p={2}
-            width={2}
-            height={2}
+            width={3}
+            height={3}
             borderRadius='full'
             color='#fff'
           >
-            <Text fontSize={'xs'}>{totalQuantity}</Text>
+            <Text as='span' fontSize={'10px'}>
+              {totalQuantity}
+            </Text>
           </Stack>
         )}
       </Box>

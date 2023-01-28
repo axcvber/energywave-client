@@ -85,7 +85,7 @@ const GallerySlider: React.FC<IGallerySlider> = ({ data }) => {
         </Box>
       </GridItem>
 
-      <Paper as={GridItem} p={0} width={'100%'} display={'grid'} order={{ base: 1, lg: 2 }}>
+      <Paper as={GridItem} overflow='hidden' p={0} width={'100%'} display={'grid'} order={{ base: 1, lg: 2 }}>
         <Swiper
           style={{
             width: '100%',

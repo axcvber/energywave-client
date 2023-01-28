@@ -74,10 +74,10 @@ const theme = extendTheme({
       },
       '#nprogress': {
         '.bar': {
-          background: `green.500 !important`,
+          background: `brand.500 !important`,
         },
         '.peg': {
-          boxShadow: `0 0 10px #38A169, 0 0 5px #38A169 !important`,
+          boxShadow: `0 0 10px #00BCFF, 0 0 5px #00BCFF !important`,
         },
       },
     }),

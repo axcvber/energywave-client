@@ -8,21 +8,17 @@ import Link from 'next/link'
 import CartList from '../cart/CartList'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { morph } from '../../utils/morph'
-import { resetCart } from '../../store/slices/cartSlice'
+import { getTotalAmount, getTotalQuantity, resetCart } from '../../store/slices/cartSlice'
 import { useRouter } from 'next/router'
 
 const CartModal = () => {
-  const { cartItems } = useAppSelector((state) => state.cart)
   const { isOpen } = useAppSelector((state) => state.modal)
+  const { cartItems } = useAppSelector((state) => state.cart)
+  const totalQuantity = useAppSelector(getTotalQuantity)
+  const totalAmount = useAppSelector(getTotalAmount)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  let totalPrice = 0
-  cartItems.forEach((item) => {
-    totalPrice += item.price?.price * item.quantity
-  })
-
-  const totalQuantity = Object.values(cartItems).reduce((sum, cur) => (sum += cur.quantity), 0)
   const isCartEmpty = cartItems.length === 0
 
   const resultText = ['товар', 'товара', 'товарів']
@@ -68,7 +64,7 @@ const CartModal = () => {
         </Stack>
       )}
 
-      <Stack mt={4} mb={6}>
+      <Stack my={4}>
         <CartList />
       </Stack>
 
@@ -84,7 +80,7 @@ const CartModal = () => {
               Сума замовлення:
             </Text>
             <Text as='span' fontSize={'2xl'} fontWeight={600} color='brand.500'>
-              {numberWithSpaces(totalPrice)} ₴
+              {numberWithSpaces(totalAmount)} ₴
             </Text>
           </Stack>
           <Link href={'/checkout'} passHref legacyBehavior>

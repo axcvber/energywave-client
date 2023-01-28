@@ -1,9 +1,7 @@
-query PrivacyPolicy {
-  privacyPolicy {
+query GetContactsPage {
+  contact {
     data {
       attributes {
-        title
-        content
         seo {
           metaTitle
           metaDescription

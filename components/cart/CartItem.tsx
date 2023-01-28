@@ -1,8 +1,7 @@
-import { Box, Heading, IconButton, Stack, Text } from '@chakra-ui/react'
+import { Box, IconButton, Stack, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { IoCloseCircleOutline } from 'react-icons/io5'
 import { decrementQuantity, incrementQuantity, IProduct, removeItem } from '../../store/slices/cartSlice'
 import { useAppDispatch } from '../../store/hooks'
 import QuantityCounter from './QuantityCounter'
@@ -30,7 +29,7 @@ const CartItem: React.FC<ICartItem> = ({ item }) => {
 
   return (
     <Box as='li' p={3} borderRadius='lg' boxShadow={'xs'} bg='white'>
-      <Stack direction={'row'} spacing={5}>
+      <Stack direction={'row'} spacing={4}>
         <Link href={`/catalog/${item.slug}`} passHref legacyBehavior>
           <Box as='a' minWidth={'80px'}>
             <Image
@@ -47,7 +46,7 @@ const CartItem: React.FC<ICartItem> = ({ item }) => {
         <Stack spacing={0} flex={1}>
           <Stack spacing={2} direction={'row'} justifyContent='space-between' alignItems={'flex-start'}>
             <Link href={`/catalog/${item.slug}`} passHref legacyBehavior>
-              <Text as='a' fontSize={'lg'} fontWeight={600} color='gray.800' _hover={{ textDecoration: 'underline' }}>
+              <Text as='a' fontSize={'lg'} fontWeight={600} color='gray.900' _hover={{ textDecoration: 'underline' }}>
                 {item.name}
               </Text>
             </Link>
@@ -67,9 +66,8 @@ const CartItem: React.FC<ICartItem> = ({ item }) => {
             alignItems={'flex-end'}
             justifyContent={{ base: 'space-between', sm: 'space-between' }}
           >
-            <Price direction='row' price={item.price} />
+            <Price price={item.price} />
 
-            {/* <Text>{numberWithSpaces(item.price?.price)} ₴</Text> */}
             <QuantityCounter
               quantity={item.quantity}
               inStock={item.inStock}

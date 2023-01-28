@@ -3,12 +3,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { IProduct } from '../../../../store/slices/cartSlice'
+import { numberWithSpaces } from '../../../../utils/numberWithSpaces'
 
 interface IOderItem {
   item: IProduct
 }
 
 const OderItem: React.FC<IOderItem> = ({ item }) => {
+  const productAmount = item.price.price * item.quantity
   return (
     <Stack
       as='li'
@@ -16,10 +18,11 @@ const OderItem: React.FC<IOderItem> = ({ item }) => {
       spacing={{ base: 6, lg: 4 }}
       justifyContent='space-between'
     >
-      <HStack spacing={5} flex={1.5}>
+      <HStack spacing={4} flex={1.5}>
         <Link href={`/catalog/${item.slug}`} passHref legacyBehavior>
           <Box as='a' minWidth={'70px'}>
             <Image
+              priority
               alt={item.image?.alternativeText || ''}
               src={item.image?.url || ''}
               placeholder='blur'
@@ -36,15 +39,13 @@ const OderItem: React.FC<IOderItem> = ({ item }) => {
               as='a'
               fontSize={'md'}
               flex={1}
-              fontWeight={500}
+              fontWeight={600}
               color='gray.900'
               _hover={{ textDecoration: 'underline' }}
             >
               {item.name}
             </Text>
           </Link>
-
-          {/* <IoCloseCircleOutline fontSize={22} onClick={onRemoveItem} /> */}
         </Stack>
       </HStack>
 
@@ -54,7 +55,9 @@ const OderItem: React.FC<IOderItem> = ({ item }) => {
             Ціна
           </Text>
 
-          <Text color='gray.900'>23 231 ₴</Text>
+          <Text color='gray.900' fontWeight={500}>
+            {numberWithSpaces(item.price.price)} ₴
+          </Text>
         </Stack>
 
         <Stack spacing={1} alignItems={'center'}>
@@ -62,7 +65,9 @@ const OderItem: React.FC<IOderItem> = ({ item }) => {
             Кількість
           </Text>
 
-          <Text color='gray.900'>{item.quantity}</Text>
+          <Text color='gray.900' fontWeight={500}>
+            {item.quantity}
+          </Text>
         </Stack>
 
         <Stack spacing={1} alignItems={'center'}>
@@ -70,7 +75,9 @@ const OderItem: React.FC<IOderItem> = ({ item }) => {
             Сумма
           </Text>
 
-          <Text color='gray.900'>23 231 ₴</Text>
+          <Text color='gray.900' fontWeight={500}>
+            {numberWithSpaces(productAmount)} ₴
+          </Text>
         </Stack>
       </HStack>
     </Stack>

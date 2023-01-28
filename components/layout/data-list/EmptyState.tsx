@@ -6,7 +6,7 @@ const EmptyState = () => {
   return (
     <Stack height={500} spacing={4} justifyContent='center' alignItems={'center'} mt={10} mb={6}>
       <Box>
-        <Image priority width={350} height={150} src={'/nodata.svg'} alt='error' />
+        <Image priority width={350} height={150} src={'/nodata.svg'} alt='empty' />
       </Box>
       <Stack spacing={3} maxWidth={400}>
         <Heading size='lg' fontWeight={500} color='gray.900' textAlign='center'>

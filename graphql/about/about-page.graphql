@@ -1,9 +1,17 @@
-query PrivacyPolicy {
-  privacyPolicy {
+query GetAboutPage {
+  aboutPage {
     data {
       attributes {
         title
         content
+        image {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
         seo {
           metaTitle
           metaDescription

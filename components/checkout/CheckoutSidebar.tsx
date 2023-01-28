@@ -1,16 +1,15 @@
-import { Box, Button, Grid, GridItem, Heading, HStack, IconButton, Input, Stack, Text } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box, Button, Grid, GridItem, Heading, HStack, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useAppSelector } from '../../store/hooks'
 import { numberWithSpaces } from '../../utils/numberWithSpaces'
 import Paper from '../layout/Paper'
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
-import CartItem from '../cart/CartItem'
-import CartList from '../cart/CartList'
 import { useFormContext } from 'react-hook-form'
+import { getTotalAmount } from '../../store/slices/cartSlice'
+import { BsQuestionCircle } from 'react-icons/bs'
+import Link from 'next/link'
 
 const CheckoutSidebar = () => {
-  const { cartItems } = useAppSelector((state) => state.cart)
+  const totalAmount = useAppSelector(getTotalAmount)
   const {
     formState: { isSubmitting },
   } = useFormContext()
@@ -27,53 +26,84 @@ const CheckoutSidebar = () => {
          ". ."
          ". ."
         `}
-          gridTemplateColumns={'3fr 2fr'}
+          gridTemplateColumns={'2fr 1fr'}
           width={'100%'}
-          gap={4}
+          gap={3}
+          alignItems='center'
         >
           <GridItem>
-            <Text color='gray.500'>Сума замовлення:</Text>
+            <Text fontSize={15} color='gray.500'>
+              Сума замовлення:
+            </Text>
           </GridItem>
           <GridItem justifySelf={'flex-end'}>
-            <Text color='gray.500'>423 089 ₴</Text>
-          </GridItem>
-          <GridItem>
-            <Text color='gray.500'>Доставка:</Text>
-          </GridItem>
-          <GridItem justifySelf={'flex-end'}>
-            <Text color='gray.500' textAlign='end'>
-              0
+            <Text fontSize={15} fontWeight={500} color='gray.900'>
+              {numberWithSpaces(totalAmount)} ₴
             </Text>
           </GridItem>
           <GridItem>
-            <Text color='gray.500'>Всього до оплати:</Text>
+            <Text fontSize={15} color='gray.500'>
+              Доставка:
+            </Text>
           </GridItem>
           <GridItem justifySelf={'flex-end'}>
-            <Text color='gray.500' textAlign='end'>
-              423 089 ₴
+            <Text fontSize={15} fontWeight={500} color='gray.900' textAlign='end'>
+              за тарифами перевізника
+            </Text>
+          </GridItem>
+          <GridItem>
+            <Text color='gray.500' fontSize={15}>
+              До оплати:
+            </Text>
+          </GridItem>
+          <GridItem>
+            <Text whiteSpace='nowrap' fontSize={'2xl'} fontWeight={600} color='brand.500' textAlign='end'>
+              {numberWithSpaces(totalAmount)} ₴
             </Text>
           </GridItem>
         </Grid>
 
-        {/* <HStack justifyContent={'space-between'}>
-          <Text>Сума замовлення:</Text>
-          <Text>423 089</Text>
-        </HStack>
-        <HStack justifyContent={'space-between'}>
-          <Text>Доставка:</Text>
-          <Text maxW={100}>За тарифами перевізника</Text>
-        </HStack>
-        <HStack justifyContent={'space-between'}>
-          <Text>Всього до оплати</Text>
-          <Text>423 089</Text>
-        </HStack> */}
-        <Button size={'lg'} loadingText={'Sending...'} isLoading={isSubmitting} type='submit'>
+        <Button size={'lg'} loadingText={'Відправлення...'} isLoading={isSubmitting} type='submit'>
           Підтвердити
         </Button>
 
-        <Text fontSize={'sm'}>Получение заказа от 5 000 ₴ только по паспорту (Закон от 06.12.2019 № 361-IX)</Text>
+        <Stack spacing={3}>
+          <Text fontSize={'sm'} color='gray.600'>
+            Підтверджуючи замовлення, я приймаю умови:
+          </Text>
+          <Stack as='ul' spacing={2}>
+            <TermsItem text='положення про збір і захист персональних даних' link='/privacy-policy' />
+            <TermsItem text='користувальницької угоди' link='/privacy-policy' />
+          </Stack>
+        </Stack>
       </Stack>
     </Paper>
+  )
+}
+
+const TermsItem: React.FC<{ text: string; link: string }> = ({ text, link }) => {
+  return (
+    <HStack
+      as='li'
+      spacing={2}
+      alignItems='flex-start'
+      sx={{
+        'svg': {
+          color: 'brand.500',
+          mt: 1,
+        },
+      }}
+    >
+      <Link href={link} passHref legacyBehavior>
+        <Box as='a'>
+          <BsQuestionCircle />
+        </Box>
+      </Link>
+
+      <Text fontSize={'small'} color='gray.600'>
+        {text}
+      </Text>
+    </HStack>
   )
 }
 

@@ -79,14 +79,6 @@ export const { getCart, addToCart, incrementQuantity, decrementQuantity, removeI
 
 export default cartSlice.reducer
 
-// const isItemInCart = createSelector(
-//   (state:RootState) => state.cart.cartItems,
-//   (items) => {
-//     items.find((item) => item.id === id)
-//   }
-// )
-
-// type Return = (state: RootState) => string | undefined;
 type Selector<S> = (state: RootState) => S
 
 export const checkItemInCart = (id: string): Selector<boolean> =>
@@ -98,7 +90,18 @@ export const checkItemInCart = (id: string): Selector<boolean> =>
 export const getItemQuantity = (id: string): Selector<number> =>
   createSelector(
     (state: RootState) => state.cart.cartItems,
-    (items) => items.find((item) => item.id === id)?.quantity || 1 //refactor
+    (items) => items.find((item) => item.id === id)?.quantity || 1
   )
 
-// const itemInCart = cartItems.find(({ id }) => id === item.id)
+export const getTotalQuantity = createSelector(
+  (state: RootState) => state.cart.cartItems,
+  (items) => Object.values(items).reduce((sum, cur) => (sum += cur.quantity), 0)
+)
+
+export const getTotalAmount = createSelector(
+  (state: RootState) => state.cart.cartItems,
+  (items) =>
+    items.reduce(function (res, item) {
+      return res + item.price.price * item.quantity
+    }, 0)
+)

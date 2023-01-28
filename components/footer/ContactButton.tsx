@@ -1,27 +1,29 @@
-import { Button } from '@chakra-ui/react'
+import { Button, ButtonProps } from '@chakra-ui/react'
 import React, { ReactElement } from 'react'
 
-interface IContactButton {
+interface IContactButton extends ButtonProps {
   label?: string
   link: string
   icon: ReactElement
 }
 
-const ContactButton: React.FC<IContactButton> = ({ label, link, icon }) => {
+const ContactButton: React.FC<IContactButton> = ({ label, link, icon, ...props }) => {
   return (
     <Button
       as='a'
       href={link}
+      rel='noopener noreferrer'
       size='sm'
       variant={'ghost'}
       colorScheme='brand'
       leftIcon={icon}
       sx={{
-        px: 1.5,
+        px: 2,
         'svg': {
           fontSize: 20,
         },
       }}
+      {...props}
     >
       {label}
     </Button>

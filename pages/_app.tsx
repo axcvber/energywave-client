@@ -25,6 +25,8 @@ import { Provider } from 'react-redux'
 import { wrapper } from '../store'
 import { getCart } from '../store/slices/cartSlice'
 import { setGlobalData } from '../store/slices/appSlice'
+import GlobalSeo from '../components/seo/GlobalSeo'
+import Script from 'next/script'
 
 NProgress.configure({ showSpinner: false })
 
@@ -47,15 +49,27 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
   }, [])
 
   return (
-    <Provider store={store}>
-      <ApolloProvider client={client}>
-        <ChakraProvider theme={theme}>
-          <Layout>
-            <Component {...props.pageProps} />
-          </Layout>
-        </ChakraProvider>
-      </ApolloProvider>
-    </Provider>
+    <>
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTAG}`} strategy='afterInteractive' />
+      <Script id='google-analytics' strategy='afterInteractive'>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.GTAG}');
+        `}
+      </Script>
+      <Provider store={store}>
+        <GlobalSeo />
+        <ApolloProvider client={client}>
+          <ChakraProvider theme={theme}>
+            <Layout>
+              <Component {...props.pageProps} />
+            </Layout>
+          </ChakraProvider>
+        </ApolloProvider>
+      </Provider>
+    </>
   )
 }
 

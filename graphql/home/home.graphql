@@ -44,6 +44,9 @@ query HomePage {
             description
           }
         }
+        topSales {
+          title
+        }
         faq {
           title
           faqItem {
@@ -51,6 +54,19 @@ query HomePage {
             question
             answer
           }
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
         }
       }
     }

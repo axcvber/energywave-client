@@ -1,6 +1,9 @@
-import { Container, Heading, Text } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 import { GetStaticProps, NextPage } from 'next'
 import React from 'react'
+import Heading from '../components/layout/Heading'
+import Markdown from '../components/layout/Markdown'
+import SeoSingle from '../components/seo/SeoSingle'
 import { PrivacyPolicy, PrivacyPolicyDocument, PrivacyPolicyQuery } from '../generated'
 import client from '../graphql/apollo-client'
 
@@ -10,10 +13,13 @@ interface IPrivacyPolicy {
 
 const PrivacyPolicy: NextPage<IPrivacyPolicy> = ({ pageData }) => {
   return (
-    <Container>
-      <Heading>{pageData.title}</Heading>
-      <Text>{pageData.content}</Text>
-    </Container>
+    <>
+      <SeoSingle seo={pageData.seo} />
+      <Container>
+        <Heading title={pageData.title} withLine />
+        <Markdown content={pageData.content} />
+      </Container>
+    </>
   )
 }
 

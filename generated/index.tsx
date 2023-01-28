@@ -21,9 +21,11 @@ export type Scalars = {
 
 export type AboutPage = {
   __typename?: 'AboutPage';
+  content: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
-  heading: ComponentMainHeading;
   image: UploadFileEntityResponse;
+  seo: ComponentMainSeo;
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -39,8 +41,10 @@ export type AboutPageEntityResponse = {
 };
 
 export type AboutPageInput = {
-  heading?: InputMaybe<ComponentMainHeadingInput>;
+  content?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<Scalars['ID']>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type BooleanFilterInput = {
@@ -205,19 +209,6 @@ export type ComponentHomeWhyUsInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type ComponentMainHeading = {
-  __typename?: 'ComponentMainHeading';
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  title: Scalars['String'];
-};
-
-export type ComponentMainHeadingInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  title?: InputMaybe<Scalars['String']>;
-};
-
 export type ComponentMainIconBox = {
   __typename?: 'ComponentMainIconBox';
   description: Scalars['String'];
@@ -254,6 +245,32 @@ export type ComponentMainPhoneNumbersFiltersInput = {
 export type ComponentMainPhoneNumbersInput = {
   id?: InputMaybe<Scalars['ID']>;
   phone?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentMainSeo = {
+  __typename?: 'ComponentMainSeo';
+  id: Scalars['ID'];
+  keywords: Scalars['String'];
+  metaDescription: Scalars['String'];
+  metaImage: UploadFileEntityResponse;
+  metaTitle: Scalars['String'];
+};
+
+export type ComponentMainSeoFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentMainSeoFiltersInput>>>;
+  keywords?: InputMaybe<StringFilterInput>;
+  metaDescription?: InputMaybe<StringFilterInput>;
+  metaTitle?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentMainSeoFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentMainSeoFiltersInput>>>;
+};
+
+export type ComponentMainSeoInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  keywords?: InputMaybe<Scalars['String']>;
+  metaDescription?: InputMaybe<Scalars['String']>;
+  metaImage?: InputMaybe<Scalars['ID']>;
+  metaTitle?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentMainSocialNetworks = {
@@ -348,6 +365,7 @@ export type Contact = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   phoneNumbers: Array<Maybe<ComponentMainPhoneNumbers>>;
+  seo: ComponentMainSeo;
   socialNetworks: Array<Maybe<ComponentMainSocialNetworks>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workingHours: Array<Maybe<ComponentMainWorkingHours>>;
@@ -388,6 +406,7 @@ export type ContactEntityResponse = {
 export type ContactInput = {
   email?: InputMaybe<Scalars['String']>;
   phoneNumbers?: InputMaybe<Array<InputMaybe<ComponentMainPhoneNumbersInput>>>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   socialNetworks?: InputMaybe<Array<InputMaybe<ComponentMainSocialNetworksInput>>>;
   workingHours?: InputMaybe<Array<InputMaybe<ComponentMainWorkingHoursInput>>>;
 };
@@ -444,6 +463,7 @@ export type DeliveryAndPayment = {
   __typename?: 'DeliveryAndPayment';
   content: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
+  seo: ComponentMainSeo;
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -461,6 +481,7 @@ export type DeliveryAndPaymentEntityResponse = {
 
 export type DeliveryAndPaymentInput = {
   content?: InputMaybe<Scalars['String']>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -481,7 +502,8 @@ export type ExchangeAndRefund = {
   __typename?: 'ExchangeAndRefund';
   content: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
-  title?: Maybe<Scalars['String']>;
+  seo: ComponentMainSeo;
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -498,6 +520,7 @@ export type ExchangeAndRefundEntityResponse = {
 
 export type ExchangeAndRefundInput = {
   content?: InputMaybe<Scalars['String']>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -619,15 +642,19 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutPage | Category | ComponentHomeFaq | ComponentHomeFaqItem | ComponentHomeHero | ComponentHomeTopSales | ComponentHomeWhyUs | ComponentMainHeading | ComponentMainIconBox | ComponentMainPhoneNumbers | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentProductPreviewOptions | ComponentProductPrice | Contact | DeliveryAndPayment | ExchangeAndRefund | EzformsRecipient | EzformsSubmission | Global | HomePage | I18NLocale | Order | PrivacyPolicy | Product | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutPage | Category | ComponentHomeFaq | ComponentHomeFaqItem | ComponentHomeHero | ComponentHomeTopSales | ComponentHomeWhyUs | ComponentMainIconBox | ComponentMainPhoneNumbers | ComponentMainSeo | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentProductPreviewOptions | ComponentProductPrice | Contact | DeliveryAndPayment | ExchangeAndRefund | EzformsRecipient | EzformsSubmission | Global | HomePage | I18NLocale | Order | PrivacyPolicy | Product | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Global = {
   __typename?: 'Global';
+  canonical: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   darkLogo: UploadFileEntityResponse;
+  defaultDescription: Scalars['String'];
+  defaultGraphImage: UploadFileEntityResponse;
+  defaultTitle: Scalars['String'];
   favicon: UploadFileEntityResponse;
-  googleAnalyticsTag: Scalars['String'];
   lightLogo: UploadFileEntityResponse;
+  siteName: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -643,10 +670,14 @@ export type GlobalEntityResponse = {
 };
 
 export type GlobalInput = {
+  canonical?: InputMaybe<Scalars['String']>;
   darkLogo?: InputMaybe<Scalars['ID']>;
+  defaultDescription?: InputMaybe<Scalars['String']>;
+  defaultGraphImage?: InputMaybe<Scalars['ID']>;
+  defaultTitle?: InputMaybe<Scalars['String']>;
   favicon?: InputMaybe<Scalars['ID']>;
-  googleAnalyticsTag?: InputMaybe<Scalars['String']>;
   lightLogo?: InputMaybe<Scalars['ID']>;
+  siteName?: InputMaybe<Scalars['String']>;
 };
 
 export type HomePage = {
@@ -654,6 +685,7 @@ export type HomePage = {
   createdAt?: Maybe<Scalars['DateTime']>;
   faq: ComponentHomeFaq;
   hero: ComponentHomeHero;
+  seo: ComponentMainSeo;
   topSales: ComponentHomeTopSales;
   updatedAt?: Maybe<Scalars['DateTime']>;
   whyUs: ComponentHomeWhyUs;
@@ -673,6 +705,7 @@ export type HomePageEntityResponse = {
 export type HomePageInput = {
   faq?: InputMaybe<ComponentHomeFaqInput>;
   hero?: InputMaybe<ComponentHomeHeroInput>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   topSales?: InputMaybe<ComponentHomeTopSalesInput>;
   whyUs?: InputMaybe<ComponentHomeWhyUsInput>;
 };
@@ -1149,6 +1182,7 @@ export type PrivacyPolicy = {
   __typename?: 'PrivacyPolicy';
   content: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
+  seo: ComponentMainSeo;
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1166,6 +1200,7 @@ export type PrivacyPolicyEntityResponse = {
 
 export type PrivacyPolicyInput = {
   content?: InputMaybe<Scalars['String']>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -1180,6 +1215,7 @@ export type Product = {
   name: Scalars['String'];
   previewOptions: Array<Maybe<ComponentProductPreviewOptions>>;
   price: ComponentProductPrice;
+  seo: ComponentMainSeo;
   similars?: Maybe<ProductRelationResponseCollection>;
   slug: Scalars['String'];
   status: Enum_Product_Status;
@@ -1243,6 +1279,7 @@ export type ProductFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
   previewOptions?: InputMaybe<ComponentProductPreviewOptionsFiltersInput>;
   price?: InputMaybe<ComponentProductPriceFiltersInput>;
+  seo?: InputMaybe<ComponentMainSeoFiltersInput>;
   similars?: InputMaybe<ProductFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   status?: InputMaybe<StringFilterInput>;
@@ -1258,6 +1295,7 @@ export type ProductInput = {
   name?: InputMaybe<Scalars['String']>;
   previewOptions?: InputMaybe<Array<InputMaybe<ComponentProductPreviewOptionsInput>>>;
   price?: InputMaybe<ComponentProductPriceInput>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   similars?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   slug?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Enum_Product_Status>;
@@ -1822,30 +1860,45 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetAboutPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAboutPageQuery = { __typename?: 'Query', aboutPage?: { __typename?: 'AboutPageEntityResponse', data?: { __typename?: 'AboutPageEntity', attributes?: { __typename?: 'AboutPage', title: string, content: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
+
+export type GetContactsPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetContactsPageQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', attributes?: { __typename?: 'Contact', seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
+
 export type DeliveryAndPaymentQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DeliveryAndPaymentQuery = { __typename?: 'Query', deliveryAndPayment?: { __typename?: 'DeliveryAndPaymentEntityResponse', data?: { __typename?: 'DeliveryAndPaymentEntity', attributes?: { __typename?: 'DeliveryAndPayment', title: string, content: string } | null } | null } | null };
+export type DeliveryAndPaymentQuery = { __typename?: 'Query', deliveryAndPayment?: { __typename?: 'DeliveryAndPaymentEntityResponse', data?: { __typename?: 'DeliveryAndPaymentEntity', attributes?: { __typename?: 'DeliveryAndPayment', title: string, content: string, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
 
 export type ExchangeAndRefundQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ExchangeAndRefundQuery = { __typename?: 'Query', exchangeAndRefund?: { __typename?: 'ExchangeAndRefundEntityResponse', data?: { __typename?: 'ExchangeAndRefundEntity', attributes?: { __typename?: 'ExchangeAndRefund', title?: string | null, content: string } | null } | null } | null };
+export type ExchangeAndRefundQuery = { __typename?: 'Query', exchangeAndRefund?: { __typename?: 'ExchangeAndRefundEntityResponse', data?: { __typename?: 'ExchangeAndRefundEntity', attributes?: { __typename?: 'ExchangeAndRefund', title: string, content: string, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
 
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, whyUs: { __typename?: 'ComponentHomeWhyUs', title: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, item: Array<{ __typename?: 'ComponentMainIconBox', id: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', title: string, faqItem: Array<{ __typename?: 'ComponentHomeFaqItem', id: string, question: string, answer: string } | null> } } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, whyUs: { __typename?: 'ComponentHomeWhyUs', title: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, item: Array<{ __typename?: 'ComponentMainIconBox', id: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, topSales: { __typename?: 'ComponentHomeTopSales', title: string }, faq: { __typename?: 'ComponentHomeFaq', title: string, faqItem: Array<{ __typename?: 'ComponentHomeFaqItem', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
+
+export type HomeTopSalesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeTopSalesQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', topSales: { __typename?: 'ComponentHomeTopSales', products?: { __typename?: 'ProductRelationResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', name: string, status: Enum_Product_Status, slug: string, inStock: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, previewOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, price: { __typename?: 'ComponentProductPrice', price: number, discountPrice?: number | null, discountStartDate?: any | null, discountEndDate?: any | null } } | null }> } | null } } | null } | null } | null };
 
 export type InitialDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type InitialDataQuery = { __typename?: 'Query', global?: { __typename?: 'GlobalEntityResponse', data?: { __typename?: 'GlobalEntity', attributes?: { __typename?: 'Global', googleAnalyticsTag: string, lightLogo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, darkLogo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', attributes?: { __typename?: 'Contact', email: string, phoneNumbers: Array<{ __typename?: 'ComponentMainPhoneNumbers', id: string, phone: string } | null>, socialNetworks: Array<{ __typename?: 'ComponentMainSocialNetworks', id: string, icon: Enum_Componentmainsocialnetworks_Icon, link: string } | null>, workingHours: Array<{ __typename?: 'ComponentMainWorkingHours', id: string, listItem?: string | null } | null> } | null } | null } | null };
+export type InitialDataQuery = { __typename?: 'Query', global?: { __typename?: 'GlobalEntityResponse', data?: { __typename?: 'GlobalEntity', attributes?: { __typename?: 'Global', siteName: string, defaultTitle: string, defaultDescription: string, canonical: string, lightLogo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, darkLogo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, favicon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, defaultGraphImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', attributes?: { __typename?: 'Contact', email: string, phoneNumbers: Array<{ __typename?: 'ComponentMainPhoneNumbers', id: string, phone: string } | null>, socialNetworks: Array<{ __typename?: 'ComponentMainSocialNetworks', id: string, icon: Enum_Componentmainsocialnetworks_Icon, link: string } | null>, workingHours: Array<{ __typename?: 'ComponentMainWorkingHours', id: string, listItem?: string | null } | null> } | null } | null } | null };
 
 export type PrivacyPolicyQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PrivacyPolicyQuery = { __typename?: 'Query', privacyPolicy?: { __typename?: 'PrivacyPolicyEntityResponse', data?: { __typename?: 'PrivacyPolicyEntity', attributes?: { __typename?: 'PrivacyPolicy', title: string, content: string } | null } | null } | null };
+export type PrivacyPolicyQuery = { __typename?: 'Query', privacyPolicy?: { __typename?: 'PrivacyPolicyEntityResponse', data?: { __typename?: 'PrivacyPolicyEntity', attributes?: { __typename?: 'PrivacyPolicy', title: string, content: string, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1864,7 +1917,7 @@ export type GetProductPropsQueryVariables = Exact<{
 }>;
 
 
-export type GetProductPropsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', name: string, status: Enum_Product_Status, inStock: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, previewOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, gallerySlider: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, price: { __typename?: 'ComponentProductPrice', price: number, discountPrice?: number | null, discountStartDate?: any | null, discountEndDate?: any | null }, fullOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null> } | null }> } | null };
+export type GetProductPropsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', name: string, status: Enum_Product_Status, inStock: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, previewOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, gallerySlider: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, price: { __typename?: 'ComponentProductPrice', price: number, discountPrice?: number | null, discountStartDate?: any | null, discountEndDate?: any | null }, fullOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null }> } | null };
 
 export type GetProductsPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1882,6 +1935,116 @@ export type ProductsQueryVariables = Exact<{
 export type ProductsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', name: string, status: Enum_Product_Status, slug: string, inStock: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentProductPrice', price: number, discountPrice?: number | null, discountStartDate?: any | null, discountEndDate?: any | null }, previewOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null> } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
 
+export const GetAboutPageDocument = gql`
+    query GetAboutPage {
+  aboutPage {
+    data {
+      attributes {
+        title
+        content
+        image {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAboutPageQuery__
+ *
+ * To run a query within a React component, call `useGetAboutPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAboutPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAboutPageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAboutPageQuery(baseOptions?: Apollo.QueryHookOptions<GetAboutPageQuery, GetAboutPageQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAboutPageQuery, GetAboutPageQueryVariables>(GetAboutPageDocument, options);
+      }
+export function useGetAboutPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAboutPageQuery, GetAboutPageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAboutPageQuery, GetAboutPageQueryVariables>(GetAboutPageDocument, options);
+        }
+export type GetAboutPageQueryHookResult = ReturnType<typeof useGetAboutPageQuery>;
+export type GetAboutPageLazyQueryHookResult = ReturnType<typeof useGetAboutPageLazyQuery>;
+export type GetAboutPageQueryResult = Apollo.QueryResult<GetAboutPageQuery, GetAboutPageQueryVariables>;
+export const GetContactsPageDocument = gql`
+    query GetContactsPage {
+  contact {
+    data {
+      attributes {
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetContactsPageQuery__
+ *
+ * To run a query within a React component, call `useGetContactsPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContactsPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContactsPageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetContactsPageQuery(baseOptions?: Apollo.QueryHookOptions<GetContactsPageQuery, GetContactsPageQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetContactsPageQuery, GetContactsPageQueryVariables>(GetContactsPageDocument, options);
+      }
+export function useGetContactsPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetContactsPageQuery, GetContactsPageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetContactsPageQuery, GetContactsPageQueryVariables>(GetContactsPageDocument, options);
+        }
+export type GetContactsPageQueryHookResult = ReturnType<typeof useGetContactsPageQuery>;
+export type GetContactsPageLazyQueryHookResult = ReturnType<typeof useGetContactsPageLazyQuery>;
+export type GetContactsPageQueryResult = Apollo.QueryResult<GetContactsPageQuery, GetContactsPageQueryVariables>;
 export const DeliveryAndPaymentDocument = gql`
     query DeliveryAndPayment {
   deliveryAndPayment {
@@ -1889,6 +2052,19 @@ export const DeliveryAndPaymentDocument = gql`
       attributes {
         title
         content
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+        }
       }
     }
   }
@@ -1928,6 +2104,19 @@ export const ExchangeAndRefundDocument = gql`
       attributes {
         title
         content
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+        }
       }
     }
   }
@@ -2007,6 +2196,9 @@ export const HomePageDocument = gql`
             description
           }
         }
+        topSales {
+          title
+        }
         faq {
           title
           faqItem {
@@ -2014,6 +2206,19 @@ export const HomePageDocument = gql`
             question
             answer
           }
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
         }
       }
     }
@@ -2047,6 +2252,75 @@ export function useHomePageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<H
 export type HomePageQueryHookResult = ReturnType<typeof useHomePageQuery>;
 export type HomePageLazyQueryHookResult = ReturnType<typeof useHomePageLazyQuery>;
 export type HomePageQueryResult = Apollo.QueryResult<HomePageQuery, HomePageQueryVariables>;
+export const HomeTopSalesDocument = gql`
+    query HomeTopSales {
+  homePage {
+    data {
+      attributes {
+        topSales {
+          products {
+            data {
+              id
+              attributes {
+                name
+                status
+                slug
+                image {
+                  data {
+                    attributes {
+                      url
+                      alternativeText
+                    }
+                  }
+                }
+                previewOptions {
+                  id
+                  option
+                  description
+                }
+                price {
+                  price
+                  discountPrice
+                  discountStartDate
+                  discountEndDate
+                }
+                inStock
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useHomeTopSalesQuery__
+ *
+ * To run a query within a React component, call `useHomeTopSalesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHomeTopSalesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHomeTopSalesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useHomeTopSalesQuery(baseOptions?: Apollo.QueryHookOptions<HomeTopSalesQuery, HomeTopSalesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<HomeTopSalesQuery, HomeTopSalesQueryVariables>(HomeTopSalesDocument, options);
+      }
+export function useHomeTopSalesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HomeTopSalesQuery, HomeTopSalesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<HomeTopSalesQuery, HomeTopSalesQueryVariables>(HomeTopSalesDocument, options);
+        }
+export type HomeTopSalesQueryHookResult = ReturnType<typeof useHomeTopSalesQuery>;
+export type HomeTopSalesLazyQueryHookResult = ReturnType<typeof useHomeTopSalesLazyQuery>;
+export type HomeTopSalesQueryResult = Apollo.QueryResult<HomeTopSalesQuery, HomeTopSalesQueryVariables>;
 export const InitialDataDocument = gql`
     query InitialData {
   global {
@@ -2066,7 +2340,24 @@ export const InitialDataDocument = gql`
             }
           }
         }
-        googleAnalyticsTag
+        favicon {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        siteName
+        defaultTitle
+        defaultDescription
+        defaultGraphImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        canonical
       }
     }
   }
@@ -2126,6 +2417,19 @@ export const PrivacyPolicyDocument = gql`
       attributes {
         title
         content
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+        }
       }
     }
   }
@@ -2307,6 +2611,19 @@ export const GetProductPropsDocument = gql`
           id
           option
           description
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
         }
       }
     }

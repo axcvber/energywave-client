@@ -1,4 +1,4 @@
-import { Container, Grid, GridItem, Heading, useToast } from '@chakra-ui/react'
+import { Container, Grid, GridItem, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
@@ -12,6 +12,8 @@ import axios from 'axios'
 import { resetCart } from '../store/slices/cartSlice'
 import { wrapper } from '../store'
 import Backdrop from '../components/layout/Backdrop'
+import Heading from '../components/layout/Heading'
+import { NextSeo } from 'next-seo'
 
 type ContactInfoType = {
   lastName: string
@@ -83,12 +85,11 @@ const CheckoutPage = () => {
       shipping: data.shipping,
       payment: data.payment,
     }
-    console.log('checkout data', formData)
 
     try {
       await axios.post(`${process.env.SERVER_API}/api/orders`, { data: { formData } })
-      // await router.replace('/thank-you')
-      // dispatch(resetCart())
+      await router.replace('/thank-you')
+      dispatch(resetCart())
     } catch (error) {
       toast({
         position: 'bottom-left',
@@ -102,18 +103,22 @@ const CheckoutPage = () => {
 
   return (
     <>
+      <NextSeo title='Оформлення замовлення' nofollow noindex />
       <Backdrop isOpen={isOpenBackdrop} onClose={onCloseBackdrop} />
       <Container position={'relative'}>
-        <Heading as='h1' textAlign={{ base: 'center', lg: 'left' }} size={'lg'} fontWeight={600} mb={6}>
-          Оформлення замовлення
-        </Heading>
+        <Heading
+          title={'Оформлення замовлення'}
+          withLine
+          stackProps={{ mb: 6, alignItems: { base: 'center', lg: 'flex-start' } }}
+          headingProps={{ textAlign: { base: 'center', lg: 'left' } }}
+        />
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <Grid templateColumns={{ base: '1fr', lg: '1fr 300px' }} gap={6} alignItems='flex-start'>
               <GridItem>
                 <CheckoutSteps />
               </GridItem>
-              <GridItem as='aside' position={'sticky'} top={6}>
+              <GridItem as='aside' position={'sticky'} top={'94px'}>
                 <CheckoutSidebar />
               </GridItem>
             </Grid>
@@ -124,10 +129,9 @@ const CheckoutPage = () => {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const state = store.getState()
   const cartItems = state.cart.cartItems
-  // console.log('cartItems SSR', cartItems)
 
   if (!cartItems.length) {
     return {
@@ -142,22 +146,5 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
     props: {},
   }
 })
-
-// export const getStaticProps = () => {
-//   if (!content) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: '/welcome',
-//       },
-//     };
-//   }
-//   return {
-//     props: {
-//       pageData: data.homePage?.data?.attributes,
-//     },
-//     revalidate: 60,
-//   }
-// }
 
 export default CheckoutPage

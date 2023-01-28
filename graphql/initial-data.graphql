@@ -16,7 +16,24 @@ query InitialData {
             }
           }
         }
-        googleAnalyticsTag
+        favicon {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        siteName
+        defaultTitle
+        defaultDescription
+        defaultGraphImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        canonical
       }
     }
   }

@@ -1,0 +1,40 @@
+query HomeTopSales {
+  homePage {
+    data {
+      attributes {
+        topSales {
+          products {
+            data {
+              id
+              attributes {
+                name
+                status
+                slug
+                image {
+                  data {
+                    attributes {
+                      url
+                      alternativeText
+                    }
+                  }
+                }
+                previewOptions {
+                  id
+                  option
+                  description
+                }
+                price {
+                  price
+                  discountPrice
+                  discountStartDate
+                  discountEndDate
+                }
+                inStock
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

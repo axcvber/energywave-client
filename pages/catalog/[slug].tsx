@@ -14,6 +14,7 @@ import client from '../../graphql/apollo-client'
 import ProductSidebar from '../../components/product/ProductSidebar'
 import ProductFeatures from '../../components/product/ProductFeatures'
 import dynamic from 'next/dynamic'
+import SeoSingle from '../../components/seo/SeoSingle'
 
 const SimilarProducts = dynamic(() => import('../../components/product/SimilarProducts'), {
   ssr: false,
@@ -25,20 +26,23 @@ interface ICatalogSingle {
 
 const CatalogSingle: React.FC<ICatalogSingle> = ({ item }) => {
   return (
-    <Container>
-      <Grid templateColumns={{ base: '1fr', lg: '1fr 350px' }} gap={6} alignItems='flex-start'>
-        <GridItem>
-          <GallerySlider data={item.attributes!.gallerySlider.data} />
-        </GridItem>
-        <GridItem as='aside' position={{ base: 'static', lg: 'sticky' }} top={6}>
-          <ProductSidebar item={item} />
-        </GridItem>
-        <GridItem>
-          <ProductFeatures productName={item.attributes!.name} features={item.attributes!.fullOptions} />
-        </GridItem>
-      </Grid>
-      <SimilarProducts productId={item.id as string} />
-    </Container>
+    <>
+      <SeoSingle seo={item.attributes!.seo} />
+      <Container>
+        <Grid templateColumns={{ base: '1fr', lg: '1fr 350px' }} gap={6} alignItems='flex-start'>
+          <GridItem>
+            <GallerySlider data={item.attributes!.gallerySlider.data} />
+          </GridItem>
+          <GridItem as='aside' position={{ base: 'static', lg: 'sticky' }} top={'94px'}>
+            <ProductSidebar item={item} />
+          </GridItem>
+          <GridItem>
+            <ProductFeatures productName={item.attributes!.name} features={item.attributes!.fullOptions} />
+          </GridItem>
+        </Grid>
+        <SimilarProducts productId={item.id as string} />
+      </Container>
+    </>
   )
 }
 

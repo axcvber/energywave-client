@@ -1,10 +1,11 @@
-import { Heading, HStack, IconButton, Skeleton, Stack } from '@chakra-ui/react'
+import { HStack, IconButton, Skeleton, Stack } from '@chakra-ui/react'
 import React, { useRef } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useGetSimilarProductsQuery } from '../../generated'
 import ProductCard from '../cards/ProductCard'
 import { Navigation } from 'swiper'
+import Heading from '../layout/Heading'
 
 interface ISimilarProducts {
   productId: string
@@ -25,9 +26,8 @@ const SimilarProducts: React.FC<ISimilarProducts> = ({ productId }) => {
   return (
     <Stack width={'100%'} spacing={4} mt={10}>
       <HStack justifyContent={'space-between'} px={2}>
-        <Heading fontWeight={600} size='lg' color={'gray.900'}>
-          Подібні товари
-        </Heading>
+        <Heading title={'Подібні товари'} withLine />
+
         <Stack direction='row' alignItems='center' spacing={1}>
           <IconButton ref={prevRef} aria-label='prev' size='sm' icon={<FiChevronLeft fontSize={20} />} />
 

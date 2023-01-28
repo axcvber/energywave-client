@@ -39,6 +39,19 @@ query GetProductProps($slug: String) {
           option
           description
         }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+        }
       }
     }
   }

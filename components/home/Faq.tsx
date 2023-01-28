@@ -1,7 +1,8 @@
-import { Container, Heading } from '@chakra-ui/react'
+import { Container, Stack } from '@chakra-ui/react'
 import React from 'react'
 import { ComponentHomeFaq } from '../../generated'
 import Accordion from '../layout/Accordion'
+import Heading from '../layout/Heading'
 
 interface IFaq {
   data: ComponentHomeFaq
@@ -9,10 +10,10 @@ interface IFaq {
 
 const Faq: React.FC<IFaq> = ({ data }) => {
   return (
-    <Container my={12}>
-      <Heading textAlign={'center'}>{data.title}</Heading>
+    <Stack as={Container} spacing={6}>
+      <Heading title={data.title} align='center' withLine headingProps={{ size: 'xl' }} />
       <Accordion data={data.faqItem} />
-    </Container>
+    </Stack>
   )
 }
 

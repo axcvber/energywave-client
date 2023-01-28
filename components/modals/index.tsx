@@ -15,11 +15,12 @@ interface IModal {
   onClose: () => void
   children: ReactNode
   title: string
+  size?: string
 }
 
-const Modal: React.FC<IModal> = ({ isOpen, children, onClose, title }) => {
+const Modal: React.FC<IModal> = ({ isOpen, children, onClose, title, size = 'xl' }) => {
   return (
-    <ChakraModal isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom' size={{ base: 'full', md: 'xl' }}>
+    <ChakraModal isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom' size={{ base: 'full', md: size }}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader

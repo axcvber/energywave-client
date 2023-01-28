@@ -7,7 +7,7 @@ interface IPaper extends BoxProps {
 
 const Paper: React.FC<IPaper> = ({ children, ...props }) => {
   return (
-    <Box boxShadow='sm' overflow={'hidden'} borderRadius={'md'} p={5} bg='white' {...props}>
+    <Box boxShadow='sm' borderRadius={'md'} p={5} bg='white' {...props}>
       {children}
     </Box>
   )

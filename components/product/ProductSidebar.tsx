@@ -1,4 +1,4 @@
-import { Box, Button, Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, HStack, Stack, Text } from '@chakra-ui/react'
 import React, { ReactNode, useEffect, useState } from 'react'
 import { FaShippingFast } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
@@ -15,6 +15,7 @@ import {
 } from '../../store/slices/cartSlice'
 import { showModal } from '../../store/slices/modalSlice'
 import QuantityCounter from '../cart/QuantityCounter'
+import Heading from '../layout/Heading'
 import Paper from '../layout/Paper'
 import { MODAL_TYPES } from '../modals/ModalWrapper'
 import PreviewOptions from '../PreviewOptions'
@@ -82,14 +83,12 @@ const ProductSidebar: React.FC<IProductSidebar> = ({ item }) => {
     <Stack spacing={3}>
       <Paper>
         <Stack spacing={3}>
-          <Heading size='lg' fontWeight={600} color='gray.900'>
-            {item.attributes!.name}
-          </Heading>
+          <Heading title={item.attributes!.name} />
           <div>
             <StatusBadge status={item.attributes!.status} />
           </div>
           <HStack justifyContent={'space-between'} alignItems='flex-start'>
-            <Price price={item.attributes!.price} />
+            <Price size='large' price={item.attributes!.price} />
             <QuantityCounter
               quantity={quantity}
               inStock={item.attributes!.inStock}
