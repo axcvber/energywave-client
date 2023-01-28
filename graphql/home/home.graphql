@@ -12,14 +12,6 @@ query HomePage {
               }
             }
           }
-          image {
-            data {
-              attributes {
-                url
-                alternativeText
-              }
-            }
-          }
         }
         whyUs {
           title

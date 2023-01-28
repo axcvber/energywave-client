@@ -155,7 +155,6 @@ export type ComponentHomeHero = {
   background: UploadFileEntityResponse;
   description: Scalars['String'];
   id: Scalars['ID'];
-  image: UploadFileEntityResponse;
   title: Scalars['String'];
 };
 
@@ -163,7 +162,6 @@ export type ComponentHomeHeroInput = {
   background?: InputMaybe<Scalars['ID']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
-  image?: InputMaybe<Scalars['ID']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -178,6 +176,7 @@ export type ComponentHomeTopSales = {
 export type ComponentHomeTopSalesProductsArgs = {
   filters?: InputMaybe<ProductFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -524,94 +523,6 @@ export type ExchangeAndRefundInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type EzformsRecipient = {
-  __typename?: 'EzformsRecipient';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  email?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type EzformsRecipientEntity = {
-  __typename?: 'EzformsRecipientEntity';
-  attributes?: Maybe<EzformsRecipient>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type EzformsRecipientEntityResponse = {
-  __typename?: 'EzformsRecipientEntityResponse';
-  data?: Maybe<EzformsRecipientEntity>;
-};
-
-export type EzformsRecipientEntityResponseCollection = {
-  __typename?: 'EzformsRecipientEntityResponseCollection';
-  data: Array<EzformsRecipientEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type EzformsRecipientFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<EzformsRecipientFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  email?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<EzformsRecipientFiltersInput>;
-  number?: InputMaybe<StringFilterInput>;
-  or?: InputMaybe<Array<InputMaybe<EzformsRecipientFiltersInput>>>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type EzformsRecipientInput = {
-  email?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  number?: InputMaybe<Scalars['String']>;
-};
-
-export type EzformsSubmission = {
-  __typename?: 'EzformsSubmission';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  data?: Maybe<Scalars['JSON']>;
-  formName?: Maybe<Scalars['String']>;
-  score?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type EzformsSubmissionEntity = {
-  __typename?: 'EzformsSubmissionEntity';
-  attributes?: Maybe<EzformsSubmission>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type EzformsSubmissionEntityResponse = {
-  __typename?: 'EzformsSubmissionEntityResponse';
-  data?: Maybe<EzformsSubmissionEntity>;
-};
-
-export type EzformsSubmissionEntityResponseCollection = {
-  __typename?: 'EzformsSubmissionEntityResponseCollection';
-  data: Array<EzformsSubmissionEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type EzformsSubmissionFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<EzformsSubmissionFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  data?: InputMaybe<JsonFilterInput>;
-  formName?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<EzformsSubmissionFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<EzformsSubmissionFiltersInput>>>;
-  score?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type EzformsSubmissionInput = {
-  data?: InputMaybe<Scalars['JSON']>;
-  formName?: InputMaybe<Scalars['String']>;
-  score?: InputMaybe<Scalars['String']>;
-};
-
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -642,7 +553,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutPage | Category | ComponentHomeFaq | ComponentHomeFaqItem | ComponentHomeHero | ComponentHomeTopSales | ComponentHomeWhyUs | ComponentMainIconBox | ComponentMainPhoneNumbers | ComponentMainSeo | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentProductPreviewOptions | ComponentProductPrice | Contact | DeliveryAndPayment | ExchangeAndRefund | EzformsRecipient | EzformsSubmission | Global | HomePage | I18NLocale | Order | PrivacyPolicy | Product | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutPage | Category | ComponentHomeFaq | ComponentHomeFaqItem | ComponentHomeHero | ComponentHomeTopSales | ComponentHomeWhyUs | ComponentMainIconBox | ComponentMainPhoneNumbers | ComponentMainSeo | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentProductPreviewOptions | ComponentProductPrice | Contact | DeliveryAndPayment | ExchangeAndRefund | Global | HomePage | I18NLocale | Order | PrivacyPolicy | Product | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Global = {
   __typename?: 'Global';
@@ -823,8 +734,6 @@ export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createCategory?: Maybe<CategoryEntityResponse>;
-  createEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
-  createEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   createOrder?: Maybe<OrderEntityResponse>;
   createProduct?: Maybe<ProductEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -838,8 +747,6 @@ export type Mutation = {
   deleteContact?: Maybe<ContactEntityResponse>;
   deleteDeliveryAndPayment?: Maybe<DeliveryAndPaymentEntityResponse>;
   deleteExchangeAndRefund?: Maybe<ExchangeAndRefundEntityResponse>;
-  deleteEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
-  deleteEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   deleteGlobal?: Maybe<GlobalEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
   deleteOrder?: Maybe<OrderEntityResponse>;
@@ -867,8 +774,6 @@ export type Mutation = {
   updateContact?: Maybe<ContactEntityResponse>;
   updateDeliveryAndPayment?: Maybe<DeliveryAndPaymentEntityResponse>;
   updateExchangeAndRefund?: Maybe<ExchangeAndRefundEntityResponse>;
-  updateEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
-  updateEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateGlobal?: Maybe<GlobalEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
@@ -894,16 +799,6 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateCategoryArgs = {
   data: CategoryInput;
-};
-
-
-export type MutationCreateEzformsRecipientArgs = {
-  data: EzformsRecipientInput;
-};
-
-
-export type MutationCreateEzformsSubmissionArgs = {
-  data: EzformsSubmissionInput;
 };
 
 
@@ -938,16 +833,6 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 
 export type MutationDeleteCategoryArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteEzformsRecipientArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteEzformsSubmissionArgs = {
   id: Scalars['ID'];
 };
 
@@ -1045,18 +930,6 @@ export type MutationUpdateDeliveryAndPaymentArgs = {
 
 export type MutationUpdateExchangeAndRefundArgs = {
   data: ExchangeAndRefundInput;
-};
-
-
-export type MutationUpdateEzformsRecipientArgs = {
-  data: EzformsRecipientInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdateEzformsSubmissionArgs = {
-  data: EzformsSubmissionInput;
-  id: Scalars['ID'];
 };
 
 
@@ -1215,6 +1088,7 @@ export type Product = {
   name: Scalars['String'];
   previewOptions: Array<Maybe<ComponentProductPreviewOptions>>;
   price: ComponentProductPrice;
+  publishedAt?: Maybe<Scalars['DateTime']>;
   seo: ComponentMainSeo;
   similars?: Maybe<ProductRelationResponseCollection>;
   slug: Scalars['String'];
@@ -1247,6 +1121,7 @@ export type ProductPreviewOptionsArgs = {
 export type ProductSimilarsArgs = {
   filters?: InputMaybe<ProductFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -1279,6 +1154,7 @@ export type ProductFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
   previewOptions?: InputMaybe<ComponentProductPreviewOptionsFiltersInput>;
   price?: InputMaybe<ComponentProductPriceFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   seo?: InputMaybe<ComponentMainSeoFiltersInput>;
   similars?: InputMaybe<ProductFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -1295,6 +1171,7 @@ export type ProductInput = {
   name?: InputMaybe<Scalars['String']>;
   previewOptions?: InputMaybe<Array<InputMaybe<ComponentProductPreviewOptionsInput>>>;
   price?: InputMaybe<ComponentProductPriceInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<ComponentMainSeoInput>;
   similars?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   slug?: InputMaybe<Scalars['String']>;
@@ -1306,6 +1183,11 @@ export type ProductRelationResponseCollection = {
   data: Array<ProductEntity>;
 };
 
+export enum PublicationState {
+  Live = 'LIVE',
+  Preview = 'PREVIEW'
+}
+
 export type Query = {
   __typename?: 'Query';
   aboutPage?: Maybe<AboutPageEntityResponse>;
@@ -1314,10 +1196,6 @@ export type Query = {
   contact?: Maybe<ContactEntityResponse>;
   deliveryAndPayment?: Maybe<DeliveryAndPaymentEntityResponse>;
   exchangeAndRefund?: Maybe<ExchangeAndRefundEntityResponse>;
-  ezformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
-  ezformsRecipients?: Maybe<EzformsRecipientEntityResponseCollection>;
-  ezformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
-  ezformsSubmissions?: Maybe<EzformsSubmissionEntityResponseCollection>;
   global?: Maybe<GlobalEntityResponse>;
   homePage?: Maybe<HomePageEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
@@ -1348,30 +1226,6 @@ export type QueryCategoriesArgs = {
 
 export type QueryCategoryArgs = {
   id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryEzformsRecipientArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryEzformsRecipientsArgs = {
-  filters?: InputMaybe<EzformsRecipientFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryEzformsSubmissionArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryEzformsSubmissionsArgs = {
-  filters?: InputMaybe<EzformsSubmissionFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -1407,6 +1261,7 @@ export type QueryProductArgs = {
 export type QueryProductsArgs = {
   filters?: InputMaybe<ProductFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -1883,7 +1738,7 @@ export type ExchangeAndRefundQuery = { __typename?: 'Query', exchangeAndRefund?:
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, whyUs: { __typename?: 'ComponentHomeWhyUs', title: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, item: Array<{ __typename?: 'ComponentMainIconBox', id: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, topSales: { __typename?: 'ComponentHomeTopSales', title: string }, faq: { __typename?: 'ComponentHomeFaq', title: string, faqItem: Array<{ __typename?: 'ComponentHomeFaqItem', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } }, whyUs: { __typename?: 'ComponentHomeWhyUs', title: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, item: Array<{ __typename?: 'ComponentMainIconBox', id: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, topSales: { __typename?: 'ComponentHomeTopSales', title: string }, faq: { __typename?: 'ComponentHomeFaq', title: string, faqItem: Array<{ __typename?: 'ComponentHomeFaqItem', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
 
 export type HomeTopSalesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2161,14 +2016,6 @@ export const HomePageDocument = gql`
             data {
               attributes {
                 url
-              }
-            }
-          }
-          image {
-            data {
-              attributes {
-                url
-                alternativeText
               }
             }
           }
