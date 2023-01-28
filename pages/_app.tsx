@@ -74,13 +74,13 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 }
 
 MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context) => {
-  const ctx = await App.getInitialProps(context)
   const { req, res } = context.ctx
+  dispatch(getCart({ req, res }))
+  const ctx = await App.getInitialProps(context)
   const { data } = await client.query<InitialDataQuery>({
     query: InitialDataDocument,
   })
-  await dispatch(setGlobalData(data))
-  await dispatch(getCart({ req, res }))
+  dispatch(setGlobalData(data))
 
   return { ...ctx }
 })
