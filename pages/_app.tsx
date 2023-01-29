@@ -25,7 +25,6 @@ import { Provider } from 'react-redux'
 import { wrapper } from '../store'
 import { getCart } from '../store/slices/cartSlice'
 import { setGlobalData } from '../store/slices/appSlice'
-import GlobalSeo from '../components/seo/GlobalSeo'
 import Script from 'next/script'
 
 NProgress.configure({ showSpinner: false })
@@ -60,7 +59,6 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
         `}
       </Script>
       <Provider store={store}>
-        <GlobalSeo />
         <ApolloProvider client={client}>
           <ChakraProvider theme={theme}>
             <Layout>
