@@ -4,6 +4,7 @@ import { CookieName, deleteCookie, getCookie, setCookie } from '../../hooks/useC
 import { ComponentProductPrice, Maybe, UploadFile } from '../../generated'
 import { IncomingMessage, ServerResponse } from 'http'
 import { RootState } from '..'
+import { HYDRATE } from 'next-redux-wrapper'
 
 export interface IProduct extends IProductPayload {
   quantity: number
@@ -71,6 +72,25 @@ export const cartSlice = createSlice({
     resetCart: () => {
       deleteCookie(CookieName.CARD)
       return initialState
+    },
+  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(HYDRATE, (state, action) => {
+  //       // action is inferred correctly here if using TS
+  //       return {
+  //         ...state,
+  //         ...action.payload.cart,
+  //       }
+  //     })
+
+  // },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.cart,
+      }
     },
   },
 })
