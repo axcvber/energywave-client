@@ -23,9 +23,10 @@ import NProgress from 'nprogress'
 import { ApolloProvider } from '@apollo/client'
 import { Provider } from 'react-redux'
 import { wrapper } from '../store'
-import { getCart } from '../store/slices/cartSlice'
+import { getCart, setCart } from '../store/slices/cartSlice'
 import { setGlobalData } from '../store/slices/appSlice'
 import Script from 'next/script'
+import { getCookie } from 'cookies-next'
 
 NProgress.configure({ showSpinner: false })
 
@@ -73,12 +74,21 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 
 MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context) => {
   const { req, res } = context.ctx
-  dispatch(getCart({ req, res }))
+
+  let result = []
+  const localData: any = getCookie('CARD', { req, res })
+  if (localData && localData.length > 0) {
+    result = JSON.parse(localData)
+  }
+
+  await dispatch(setCart(result))
+
+  // dispatch(getCart({ req, res }))
   const ctx = await App.getInitialProps(context)
   const { data } = await client.query<InitialDataQuery>({
     query: InitialDataDocument,
   })
-  dispatch(setGlobalData(data))
+  await dispatch(setGlobalData(data))
 
   return { ...ctx }
 })

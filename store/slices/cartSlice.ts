@@ -32,6 +32,10 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    setCart: (state, { payload }: PayloadAction<IProduct[]>) => {
+      state.cartItems = payload
+    },
+
     getCart: (state, { payload }: PayloadAction<{ req?: IncomingMessage; res?: ServerResponse<IncomingMessage> }>) => {
       const result: IProduct[] | [] = getCookie(CookieName.CARD, payload)
       state.cartItems = result
@@ -87,6 +91,7 @@ export const cartSlice = createSlice({
   // },
   extraReducers: {
     [HYDRATE]: (state, action) => {
+      console.log('HYDRATE cart', action.payload)
       return {
         ...state,
         ...action.payload.cart,
@@ -95,7 +100,8 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { getCart, addToCart, incrementQuantity, decrementQuantity, removeItem, resetCart } = cartSlice.actions
+export const { setCart, getCart, addToCart, incrementQuantity, decrementQuantity, removeItem, resetCart } =
+  cartSlice.actions
 
 export default cartSlice.reducer
 

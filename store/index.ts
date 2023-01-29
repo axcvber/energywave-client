@@ -4,32 +4,51 @@ import appSlice from './slices/appSlice'
 import cartSlice from './slices/cartSlice'
 import modalSlice from './slices/modalSlice'
 
-const combinedReducer = combineReducers({
-  app: appSlice,
-  cart: cartSlice,
-  modal: modalSlice,
-})
+// const combinedReducer = combineReducers({
+//   app: appSlice,
+//   cart: cartSlice,
+//   modal: modalSlice,
+// })
 
-const reducer: typeof combinedReducer = (state, action) => {
-  if (action.type === HYDRATE) {
-    const nextState = {
-      ...state,
-      ...action.payload,
-    }
-    return nextState
-  } else {
-    return combinedReducer(state, action)
-  }
-}
+// const reducers = {
+//   [appSlice.name]: appSlice,
+//   [cartSlice.name]: cartSlice,
+//   [modalSlice.name]: modalSlice,
+// }
 
-export const makeStore = () =>
+// const reducer = combineReducers(reducers)
+
+const makeStore = () =>
   configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-      }),
+    reducer: {
+      app: appSlice,
+      cart: cartSlice,
+      modal: modalSlice,
+    },
+    devTools: true,
+    // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(pokemonApi.middleware),
   })
+
+// const reducer: typeof combinedReducer = (state, action) => {
+//   if (action.type === HYDRATE) {
+//     const nextState = {
+//       ...state,
+//       ...action.payload,
+//     }
+//     return nextState
+//   } else {
+//     return combinedReducer(state, action)
+//   }
+// }
+
+// export const makeStore = () =>
+//   configureStore({
+//     reducer,
+//     middleware: (getDefaultMiddleware) =>
+//       getDefaultMiddleware({
+//         serializableCheck: false,
+//       }),
+//   })
 
 export type AppStore = ReturnType<typeof makeStore>
 export type AppDispatch = AppStore['dispatch']
