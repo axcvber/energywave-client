@@ -27,6 +27,7 @@ import { getCart, setCart } from '../store/slices/cartSlice'
 import { setGlobalData } from '../store/slices/appSlice'
 import Script from 'next/script'
 import { getCookie } from 'cookies-next'
+import { cookies } from 'next/headers'
 
 NProgress.configure({ showSpinner: false })
 
