@@ -46,7 +46,7 @@ const MobileMenu: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = tru
         icon={<RiMenu3Fill fontSize={25} />}
       />
 
-      <Drawer isOpen={isOpenMenu} isFullHeight={false} onClose={onCloseMenu} size={'full'}>
+      <Drawer isOpen={isOpenMenu} isFullHeight onClose={onCloseMenu} size={'full'}>
         <DrawerOverlay />
         <DrawerContent bg='brand.900'>
           <HStack alignItems={'flex-start'} justifyContent={'space-between'} px={6} py={4}>
@@ -58,21 +58,19 @@ const MobileMenu: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = tru
               onClick={onCloseMenu}
             />
             <Stack spacing={3}>
-              <SocialIcons />
-
               <Box display={{ base: 'block', sm: 'none' }}>
                 <ContactNumber isScrolledNav={false} />
               </Box>
             </Stack>
           </HStack>
-          <DrawerBody>
+          <DrawerBody as={Stack} justifyContent='center' alignItems='center' spacing={8}>
             <List
               spacing={8}
               fontSize='2xl'
               display={'flex'}
               flexDirection='column'
-              width='100%'
-              height={'100%'}
+              // width='100%'
+              // height={'100%'}
               alignItems={'center'}
               justifyContent='center'
             >
@@ -110,6 +108,7 @@ const MobileMenu: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = tru
                 )
               })}
             </List>
+            <SocialIcons />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

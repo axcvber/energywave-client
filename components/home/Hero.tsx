@@ -69,9 +69,9 @@ const Hero: React.FC<IHero> = ({ data }) => {
           sx={{
             position: 'absolute',
             bottom: -2,
-            left: 0,
+            left: -2,
             zIndex: 9,
-            width: '100vw',
+            width: '110%',
           }}
         >
           <svg id='wave' viewBox='0 0 1440 190' version='1.1' xmlns='http://www.w3.org/2000/svg'>
