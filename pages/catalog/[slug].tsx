@@ -15,6 +15,7 @@ import ProductSidebar from '../../components/product/ProductSidebar'
 import ProductFeatures from '../../components/product/ProductFeatures'
 import dynamic from 'next/dynamic'
 import SeoSingle from '../../components/seo/SeoSingle'
+import { GetServerSidePropsContext } from 'next'
 
 const SimilarProducts = dynamic(() => import('../../components/product/SimilarProducts'), {
   ssr: false,
@@ -46,42 +47,71 @@ const CatalogSingle: React.FC<ICatalogSingle> = ({ item }) => {
   )
 }
 
-export const getStaticProps = async ({ params }: GetStaticPropsContext<{ slug: string }>) => {
-  const { data } = await client.query<GetProductPropsQuery, GetProductPropsQueryVariables>({
-    query: GetProductPropsDocument,
-    variables: {
-      slug: params?.slug,
-    },
-  })
 
-  if (!data) {
+  export const getServerSideProps = async ({ params }: GetServerSidePropsContext<{ slug: string }>) => {
+
+  try {
+    const { data } = await client.query<GetProductPropsQuery, GetProductPropsQueryVariables>({
+      query: GetProductPropsDocument,
+      variables: {
+        slug: params?.slug,
+      },
+    })
+    
+    if (!data) {
+      return {
+        notFound: true,
+      }
+    }
+    return {
+      props: {
+        item: data.products?.data[0],
+      },
+    }
+  } catch (error) {
     return {
       notFound: true,
     }
   }
-
-  return {
-    props: {
-      item: data.products?.data[0],
-    },
-    revalidate: 60,
-  }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await client.query<GetProductsPathsQuery>({
-    query: GetProductsPathsDocument,
-  })
 
-  const paths =
-    data.products?.data.map(({ attributes }) => ({
-      params: { slug: attributes?.slug },
-    })) || []
+// export const getStaticProps = async ({ params }: GetStaticPropsContext<{ slug: string }>) => {
+//   const { data } = await client.query<GetProductPropsQuery, GetProductPropsQueryVariables>({
+//     query: GetProductPropsDocument,
+//     variables: {
+//       slug: params?.slug,
+//     },
+//   })
 
-  return {
-    paths,
-    fallback: false,
-  }
-}
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     }
+//   }
+
+//   return {
+//     props: {
+//       item: data.products?.data[0],
+//     },
+//     revalidate: 60,
+//   }
+// }
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const { data } = await client.query<GetProductsPathsQuery>({
+//     query: GetProductsPathsDocument,
+//   })
+
+//   const paths =
+//     data.products?.data.map(({ attributes }) => ({
+//       params: { slug: attributes?.slug },
+//     })) || []
+
+//   return {
+//     paths,
+//     fallback: false,
+//   }
+// }
 
 export default CatalogSingle

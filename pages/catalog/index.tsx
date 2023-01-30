@@ -11,6 +11,7 @@ import { morph } from '../../utils/morph'
 import Paginator from '../../components/Paginator'
 import ProductCardSkeleton from '../../components/cards/ProductCardSkeleton'
 import { NextSeo } from 'next-seo'
+import { wrapper } from '../../store'
 
 interface ICatalogPage {
   categories: CategoryEntity[]
@@ -116,30 +117,5 @@ export async function getServerSideProps() {
     },
   }
 }
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const { data } = await client.query<GetCategoriesQuery>({
-//     query: GetCategoriesDocument,
-//   })
-
-//   return {
-//     props: {
-//       categories: data.categories?.data,
-//     },
-//   },
-// }
-
-// export const getStaticProps = async () => {
-//   const { data } = await client.query<GetCategoriesQuery>({
-//     query: GetCategoriesDocument,
-//   })
-
-//   return {
-//     props: {
-//       categories: data.categories?.data,
-//     },
-//     revalidate: 60,
-//   }
-// }
 
 export default CatalogPage

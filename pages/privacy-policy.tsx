@@ -23,16 +23,14 @@ const PrivacyPolicy: NextPage<IPrivacyPolicy> = ({ pageData }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getServerSideProps() {
   const { data } = await client.query<PrivacyPolicyQuery>({
     query: PrivacyPolicyDocument,
   })
-
   return {
     props: {
       pageData: data.privacyPolicy?.data?.attributes,
     },
-    revalidate: 60,
   }
 }
 

@@ -23,16 +23,14 @@ const DeliveryAndPayment: NextPage<IDeliveryAndPayment> = ({ pageData }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getServerSideProps() {
   const { data } = await client.query<DeliveryAndPaymentQuery>({
     query: DeliveryAndPaymentDocument,
   })
-
   return {
     props: {
       pageData: data.deliveryAndPayment?.data?.attributes,
     },
-    revalidate: 60,
   }
 }
 

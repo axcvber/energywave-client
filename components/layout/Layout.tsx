@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import Footer from '../footer/Footer'
 import Navbar from '../navbar/Navbar'
 import { Box } from '@chakra-ui/react'
@@ -14,9 +14,10 @@ interface ILayout {
 const Layout: React.FC<ILayout> = ({ children }) => {
   const router = useRouter()
   const isHomePage = router.pathname === '/'
+
   return (
     <>
-      {/* <GlobalSeo /> */}
+      <GlobalSeo />
       <ModalWrapper>
         <Box
           sx={{

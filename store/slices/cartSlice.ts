@@ -4,7 +4,6 @@ import { CookieName, deleteCookie, getCookie, setCookie } from '../../hooks/useC
 import { ComponentProductPrice, Maybe, UploadFile } from '../../generated'
 import { IncomingMessage, ServerResponse } from 'http'
 import { RootState } from '..'
-import { HYDRATE } from 'next-redux-wrapper'
 
 export interface IProduct extends IProductPayload {
   quantity: number
@@ -32,14 +31,13 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    setCart: (state, { payload }: PayloadAction<IProduct[]>) => {
+    setCart: (state, { payload }: PayloadAction<IProduct[] | []>) => {
       state.cartItems = payload
     },
-
-    getCart: (state, { payload }: PayloadAction<{ req?: IncomingMessage; res?: ServerResponse<IncomingMessage> }>) => {
-      const result: IProduct[] | [] = getCookie(CookieName.CARD, payload)
-      state.cartItems = result
-    },
+    // getCart: (state, { payload }: PayloadAction<{ req?: IncomingMessage; res?: ServerResponse<IncomingMessage> }>) => {
+    //   const result: IProduct[] | [] = getCookie(CookieName.CARD, payload)
+    //   state.cartItems = result
+    // },
 
     addToCart: (state, { payload }: PayloadAction<IProductPayload>) => {
       const itemInCart = state.cartItems.find((item) => item.id === payload.id)
@@ -78,30 +76,9 @@ export const cartSlice = createSlice({
       return initialState
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(HYDRATE, (state, action) => {
-  //       // action is inferred correctly here if using TS
-  //       return {
-  //         ...state,
-  //         ...action.payload.cart,
-  //       }
-  //     })
-
-  // },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      console.log('HYDRATE cart', action.payload)
-      return {
-        ...state,
-        ...action.payload.cart,
-      }
-    },
-  },
 })
 
-export const { setCart, getCart, addToCart, incrementQuantity, decrementQuantity, removeItem, resetCart } =
-  cartSlice.actions
+export const { setCart, addToCart, incrementQuantity, decrementQuantity, removeItem, resetCart } = cartSlice.actions
 
 export default cartSlice.reducer
 

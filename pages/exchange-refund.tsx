@@ -23,16 +23,14 @@ const ExchangeAndRefund: NextPage<IExchangeAndRefund> = ({ pageData }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getServerSideProps() {
   const { data } = await client.query<ExchangeAndRefundQuery>({
     query: ExchangeAndRefundDocument,
   })
-
   return {
     props: {
       pageData: data.exchangeAndRefund?.data?.attributes,
     },
-    revalidate: 60,
   }
 }
 

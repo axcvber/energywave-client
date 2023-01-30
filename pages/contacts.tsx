@@ -55,16 +55,14 @@ const ContactsPage: NextPage<IContactsPage> = ({ pageData }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getServerSideProps() {
   const { data } = await client.query<GetContactsPageQuery>({
     query: GetContactsPageDocument,
   })
-
   return {
     props: {
       pageData: data.contact?.data?.attributes,
     },
-    revalidate: 60,
   }
 }
 

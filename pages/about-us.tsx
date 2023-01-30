@@ -49,16 +49,15 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ pageData }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+
+export async function getServerSideProps() {
   const { data } = await client.query<GetAboutPageQuery>({
     query: GetAboutPageDocument,
   })
-
   return {
     props: {
       pageData: data.aboutPage?.data?.attributes,
     },
-    revalidate: 60,
   }
 }
 

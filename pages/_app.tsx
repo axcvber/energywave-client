@@ -15,7 +15,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../styles/theme'
 import Layout from '../components/layout/Layout'
 import { InitialDataDocument, InitialDataQuery } from '../generated'
-import App, { AppContext, AppProps } from 'next/app'
+import App, { AppProps } from 'next/app'
 import client from '../graphql/apollo-client'
 import { useEffect } from 'react'
 import { Router } from 'next/router'
@@ -23,11 +23,10 @@ import NProgress from 'nprogress'
 import { ApolloProvider } from '@apollo/client'
 import { Provider } from 'react-redux'
 import { wrapper } from '../store'
-import { getCart, setCart } from '../store/slices/cartSlice'
 import { setGlobalData } from '../store/slices/appSlice'
 import Script from 'next/script'
-import { getCookie } from 'cookies-next'
-import { cookies } from 'next/headers'
+import { IProduct, setCart } from '../store/slices/cartSlice'
+import { CookieName, getCookie } from '../hooks/useCookie'
 
 NProgress.configure({ showSpinner: false })
 
@@ -73,59 +72,16 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
   )
 }
 
-// MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Component }) => {
-//   try {
-//     const { req, res } = ctx
-
-//     let result = []
-//     const localData: any = getCookie('CARD', { req, res })
-//     if (localData && localData.length > 0) {
-//       result = JSON.parse(localData)
-//     }
-
-//     console.log('localData', localData)
-
-//     store.dispatch(setCart(result))
-
-//     const { data } = await client.query<InitialDataQuery>({
-//       query: InitialDataDocument,
-//     })
-//     console.log('data', data)
-
-//     store.dispatch(setGlobalData(data))
-//   } catch (err) {
-//     if (ctx.asPath === '/write') {
-//       ctx.res?.writeHead(302, {
-//         Location: '/403',
-//       })
-//       ctx?.res?.end()
-//     }
-//     console.log(err)
-//   }
-
-//   return {
-//     pageProps: Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {},
-//   }
-// })
-
-MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
-  // const ctx = await App.getInitialProps(context)
-  const { req, res } = ctx
+MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context) => {
+  const { req, res } = context.ctx
+  const cartItems: IProduct[] | [] = getCookie(CookieName.CARD, { req, res })
+  dispatch(setCart(cartItems))
   const { data } = await client.query<InitialDataQuery>({
     query: InitialDataDocument,
   })
-  store.dispatch(setGlobalData(data))
-  store.dispatch(getCart({ req, res }))
-
-  return {
-    pageProps: {
-      // Call page-level getInitialProps
-      // DON'T FORGET TO PROVIDE STORE TO PAGE
-      ...(Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {}),
-      // Some custom thing for all pages
-      pathname: ctx.pathname,
-    },
-  }
+  dispatch(setGlobalData(data))
+  const ctx = await App.getInitialProps(context)
+  return { ...ctx }
 })
 
 export default MyApp

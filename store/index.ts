@@ -1,4 +1,4 @@
-import { Action, AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import appSlice from './slices/appSlice'
 import cartSlice from './slices/cartSlice'
@@ -11,38 +11,16 @@ const combinedReducer = combineReducers({
 })
 
 const reducer: typeof combinedReducer = (state, action) => {
-  switch (action.type) {
-    case HYDRATE:
-      if (action.payload.app === 'init') delete action.payload.app
-      if (action.payload.page === 'init') delete action.payload.page
-      if (action.payload.cart === state?.cart) delete action.payload.cart
-      return { ...state, ...action.payload }
-    case 'APP':
-      return { ...state, app: action.payload }
-    case 'PAGE':
-      return { ...state, page: action.payload }
-    case 'cart/getCart':
-      return { ...state, cart: action.payload }
-    default:
-      return combinedReducer(state, action)
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state,
+      ...action.payload,
+    }
+    return nextState
+  } else {
+    return combinedReducer(state, action)
   }
 }
-
-// const reducer: typeof combinedReducer = (state, action) => {
-//   if (action.type === HYDRATE) {
-//     if (action.payload.app) delete action.payload.app
-//     if (action.payload.page) delete action.payload.page
-//     if (action.payload.cart) delete action.payload.cart
-
-//     const nextState = {
-//       ...state,
-//       ...action.payload,
-//     }
-//     return nextState
-//   } else {
-//     return combinedReducer(state, action)
-//   }
-// }
 
 export const makeStore = () =>
   configureStore({

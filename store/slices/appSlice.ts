@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { InitialDataQuery } from '../../generated'
+import { HYDRATE } from 'next-redux-wrapper'
 
 interface AppState {
   initialData: InitialDataQuery | null

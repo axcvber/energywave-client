@@ -25,28 +25,14 @@ const Home: NextPage<IHomePage> = ({ pageData }) => {
   )
 }
 
-// export const getStaticProps = wrapper.getStaticProps(() => async () => {
-//   const { data } = await client.query<HomePageQuery>({
-//     query: HomePageDocument,
-//   })
-//   return {
-//     props: {
-//       pageData: data.homePage?.data?.attributes,
-//     },
-//     revalidate: 60,
-//   }
-// })
-
-export const getStaticProps: GetStaticProps = async () => {
+export async function getServerSideProps() {
   const { data } = await client.query<HomePageQuery>({
     query: HomePageDocument,
   })
-
   return {
     props: {
       pageData: data.homePage?.data?.attributes,
     },
-    revalidate: 60,
   }
 }
 
