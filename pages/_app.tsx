@@ -73,27 +73,60 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
   )
 }
 
-MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context: AppContext) => {
-  const { req, res } = context.ctx
+MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Component }) => {
+  try {
+    const { req, res } = ctx
 
-  let result = []
-  const localData: any = getCookie('CARD', { req, res })
-  if (localData && localData.length > 0) {
-    result = JSON.parse(localData)
+    let result = []
+    const localData: any = getCookie('CARD', { req, res })
+    if (localData && localData.length > 0) {
+      result = JSON.parse(localData)
+    }
+
+    console.log('localData', localData)
+
+    store.dispatch(setCart(result))
+
+    const { data } = await client.query<InitialDataQuery>({
+      query: InitialDataDocument,
+    })
+    store.dispatch(setGlobalData(data))
+  } catch (err) {
+    if (ctx.asPath === '/write') {
+      ctx.res?.writeHead(302, {
+        Location: '/403',
+      })
+      ctx?.res?.end()
+    }
+    console.log(err)
   }
 
-  console.log('localData', localData)
-
-  await dispatch(setCart(result))
-
-  // dispatch(getCart({ req, res }))
-  const ctx = await App.getInitialProps(context)
-  const { data } = await client.query<InitialDataQuery>({
-    query: InitialDataDocument,
-  })
-  await dispatch(setGlobalData(data))
-
-  return { ...ctx }
+  return {
+    pageProps: Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {},
+  }
 })
+
+// MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context) => {
+//   const { req, res } = context.ctx
+
+//   let result = []
+//   const localData: any = getCookie('CARD', { req, res })
+//   if (localData && localData.length > 0) {
+//     result = JSON.parse(localData)
+//   }
+
+//   console.log('localData', localData)
+
+//   await dispatch(setCart(result))
+
+//   // dispatch(getCart({ req, res }))
+//   const ctx = await App.getInitialProps(context)
+//   const { data } = await client.query<InitialDataQuery>({
+//     query: InitialDataDocument,
+//   })
+//   await dispatch(setGlobalData(data))
+
+//   return { ...ctx }
+// })
 
 export default MyApp
