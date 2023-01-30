@@ -38,7 +38,7 @@ const HomeNavbar = () => {
           </Box>
 
           <Box display={{ base: 'none', sm: 'block' }}>
-            <ContactNumber isScrolledNav={isScrolledNav} />
+            <ContactNumber />
           </Box>
 
           <CartIcon isScrolledNav={isScrolledNav} />

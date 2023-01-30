@@ -59,18 +59,16 @@ const MobileMenu: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = tru
             />
             <Stack spacing={3}>
               <Box display={{ base: 'block', sm: 'none' }}>
-                <ContactNumber isScrolledNav={false} />
+                <ContactNumber />
               </Box>
             </Stack>
           </HStack>
-          <DrawerBody as={Stack} justifyContent='center' alignItems='center' spacing={8}>
+          <DrawerBody as={Stack} justifyContent='center' alignItems='center' spacing={8} mb={8}>
             <List
               spacing={8}
               fontSize='2xl'
               display={'flex'}
               flexDirection='column'
-              // width='100%'
-              // height={'100%'}
               alignItems={'center'}
               justifyContent='center'
             >
@@ -84,6 +82,7 @@ const MobileMenu: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = tru
                           position: 'relative',
                           color: router.pathname === item.path ? 'brand.500' : 'gray.100',
                           fontWeight: 500,
+                          fontSize: 20,
                         }}
                         as='a'
                         _before={{

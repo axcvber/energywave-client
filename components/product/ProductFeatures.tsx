@@ -48,7 +48,7 @@ const ProductFeatures: React.FC<IProductFeatures> = ({ productName, features }) 
           </Tbody>
         </Table>
       </TableContainer>
-      {!showMore && (
+      {features.length > 10 && !showMore && (
         <Button
           mt={2}
           ml={2}

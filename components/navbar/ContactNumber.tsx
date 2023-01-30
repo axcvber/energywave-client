@@ -3,7 +3,7 @@ import React from 'react'
 import { BiPhoneCall } from 'react-icons/bi'
 import { useAppSelector } from '../../store/hooks'
 
-const ContactNumber: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = true }) => {
+const ContactNumber = () => {
   const { initialData } = useAppSelector((state) => state.app)
   const contacts = initialData?.contact?.data?.attributes
 
@@ -15,9 +15,9 @@ const ContactNumber: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = 
           spacing={1}
           color={'brand.500'}
           sx={{
-            fontSize: { base: 18, sm: 15 },
+            fontSize: { base: 16, sm: 15 },
             'svg': {
-              fontSize: { base: 22, sm: 16 },
+              fontSize: { base: 16, sm: 15 },
             },
           }}
         >
