@@ -4,7 +4,7 @@ import { CategoryEntity, GetCategoriesDocument, GetCategoriesQuery, Maybe, usePr
 import DataList from '../../components/layout/data-list/DataList'
 import ProductCard from '../../components/cards/ProductCard'
 import client from '../../graphql/apollo-client'
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import CatalogNavigation from '../../components/CatalogNavigation'
 import { SortValues } from '../../components/menus/SortMenu'
 import { morph } from '../../utils/morph'
@@ -106,17 +106,40 @@ const CatalogPage: NextPage<ICatalogPage> = ({ categories }) => {
   )
 }
 
-export const getStaticProps = async () => {
+export async function getServerSideProps() {
   const { data } = await client.query<GetCategoriesQuery>({
     query: GetCategoriesDocument,
   })
-
   return {
     props: {
       categories: data.categories?.data,
     },
-    revalidate: 60,
   }
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const { data } = await client.query<GetCategoriesQuery>({
+//     query: GetCategoriesDocument,
+//   })
+
+//   return {
+//     props: {
+//       categories: data.categories?.data,
+//     },
+//   },
+// }
+
+// export const getStaticProps = async () => {
+//   const { data } = await client.query<GetCategoriesQuery>({
+//     query: GetCategoriesDocument,
+//   })
+
+//   return {
+//     props: {
+//       categories: data.categories?.data,
+//     },
+//     revalidate: 60,
+//   }
+// }
 
 export default CatalogPage
