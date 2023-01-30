@@ -21,7 +21,7 @@ export function setCookie(key: string, value: any) {
   setNextCookie(key, JSON.stringify(value), {
     maxAge: 60 * 60 * 24,
     sameSite: true,
-    httpOnly: true,
+    // httpOnly: true,
     // domain: 'https://energywave-client.vercel.app',
   }) //1 month
 }

@@ -77,7 +77,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (cont
   const { req, res } = context.ctx
 
   let result = []
-  const localData: any = getCookie('CARD', { req, res })
+  const localData: any = getCookie('CARD', { req, sameSite: true, maxAge: 60 * 60 * 24 })
   if (localData && localData.length > 0) {
     result = JSON.parse(localData)
   }
