@@ -15,11 +15,14 @@ const reducer: typeof combinedReducer = (state, action) => {
     case HYDRATE:
       if (action.payload.app === 'init') delete action.payload.app
       if (action.payload.page === 'init') delete action.payload.page
+      if (action.payload.cart === state?.cart) delete action.payload.cart
       return { ...state, ...action.payload }
     case 'APP':
       return { ...state, app: action.payload }
     case 'PAGE':
       return { ...state, page: action.payload }
+    case 'cart/setCart':
+      return { ...state, cart: action.payload }
     default:
       return combinedReducer(state, action)
   }
