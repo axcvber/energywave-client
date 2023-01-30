@@ -15,7 +15,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../styles/theme'
 import Layout from '../components/layout/Layout'
 import { InitialDataDocument, InitialDataQuery } from '../generated'
-import App, { AppProps } from 'next/app'
+import App, { AppContext, AppProps } from 'next/app'
 import client from '../graphql/apollo-client'
 import { useEffect } from 'react'
 import { Router } from 'next/router'
@@ -73,14 +73,16 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
   )
 }
 
-MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context) => {
+MyApp.getInitialProps = wrapper.getInitialAppProps(({ dispatch }) => async (context: AppContext) => {
   const { req, res } = context.ctx
 
   let result = []
-  const localData: any = getCookie('CARD', { req, sameSite: true, maxAge: 60 * 60 * 24 })
+  const localData: any = getCookie('CARD', { req, res })
   if (localData && localData.length > 0) {
     result = JSON.parse(localData)
   }
+
+  console.log('localData', localData)
 
   await dispatch(setCart(result))
 
