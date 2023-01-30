@@ -18,7 +18,7 @@ const DropdownMenu: React.FC<IDropdownMenu> = ({ title, icon, menu, onTriggerCli
   }
 
   return (
-    <Menu placement='bottom-end' matchWidth>
+    <Menu placement='bottom-end'>
       <MenuButton
         size='sm'
         p={2}

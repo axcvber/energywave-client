@@ -60,6 +60,7 @@ const theme = extendTheme({
         margin: 0,
         padding: 0,
       },
+
       body: {
         bg: '#F7F8F9',
         counterReset: 'section',

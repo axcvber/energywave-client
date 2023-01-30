@@ -12,7 +12,7 @@ interface IHero {
 
 const Hero: React.FC<IHero> = ({ data }) => {
   return (
-    <Box width={'100%'} minH={'120vh'} position={'relative'}>
+    <Box width={'100%'} minH={'120vh'} position={'relative'} overflow='hidden'>
       <Container as={Stack} width={'100%'} minH={'100vh'} justifyContent='center'>
         <Stack maxW={500} spacing={5} alignItems={'flex-start'}>
           <Heading as='h1' color='#fff' fontSize={{ base: '5xl', md: '6xl', lg: '6xl' }} fontWeight={600}>
@@ -43,7 +43,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
           '&:after': {
             content: '""',
             background: 'rgba(0,0,0,0.5)',
-            // backdropFilter: 'blur(5px)',
+            // backdropFilter: 'blur(2px)',
             display: 'block',
             position: 'absolute',
             top: 0,
@@ -71,7 +71,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
             bottom: -2,
             left: 0,
             zIndex: 9,
-            width: '100%',
+            width: '100vw',
           }}
         >
           <svg id='wave' viewBox='0 0 1440 190' version='1.1' xmlns='http://www.w3.org/2000/svg'>

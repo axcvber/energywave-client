@@ -14,7 +14,7 @@ const HomeNavbar = () => {
   const isScrolledNav = scrollDirection === 'up' && !scrolledToTop
 
   const handleScroll = () => {
-    setScrolledToTop(window.pageYOffset < 70)
+    setScrolledToTop(window.pageYOffset < 1)
   }
 
   useEffect(() => {
@@ -68,10 +68,11 @@ const Header: React.FC<HeaderProps> = ({ scrollDirection, scrolledToTop, childre
         top: 0,
         left: 0,
         zIndex: 999,
-        height: '85px',
+        height: '70px',
         borderBottom: `1px solid transparent`,
         background: 'transparent',
-        transition: 'all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)',
+
+        transition: 'all 0.20s cubic-bezier(0.645, 0.045, 0.355, 1)',
         ...(scrollDirection === 'up' &&
           !scrolledToTop && {
             boxShadow: 'sm',
@@ -83,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ scrollDirection, scrolledToTop, childre
         ...(scrollDirection === 'down' &&
           !scrolledToTop && {
             transition: 'all 0.1s ease',
-            transform: 'translateY(-70px)',
+            transform: 'translateY(-71px)',
           }),
       }}
     >

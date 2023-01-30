@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { useAppSelector } from '../../store/hooks'
 import CartItem from './CartItem'
+import image from '../../public/empty.svg'
 
 const CartList = () => {
   const { cartItems } = useAppSelector((state) => state.cart)
@@ -10,7 +11,7 @@ const CartList = () => {
     return (
       <Stack justifyContent={'center'} alignItems='center'>
         <Box>
-          <Image priority width={250} height={150} src={'/empty.svg'} alt='empty-cart' />
+          <Image priority width={250} height={150} src={image} alt='empty-cart' />
         </Box>
         <Text as='span' fontSize={'lg'} fontWeight={500} color='gray.500'>
           Ваш кошик порожній

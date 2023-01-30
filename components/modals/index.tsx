@@ -20,7 +20,13 @@ interface IModal {
 
 const Modal: React.FC<IModal> = ({ isOpen, children, onClose, title, size = 'xl' }) => {
   return (
-    <ChakraModal isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom' size={{ base: 'full', md: size }}>
+    <ChakraModal
+      preserveScrollBarGap
+      isOpen={isOpen}
+      onClose={onClose}
+      motionPreset='slideInBottom'
+      size={{ base: 'full', md: size }}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader
