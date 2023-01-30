@@ -16,7 +16,7 @@ const Layout: React.FC<ILayout> = ({ children }) => {
   const isHomePage = router.pathname === '/'
   return (
     <>
-      <GlobalSeo />
+      {/* <GlobalSeo /> */}
       <ModalWrapper>
         <Box
           sx={{

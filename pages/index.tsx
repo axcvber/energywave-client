@@ -7,6 +7,7 @@ import WhyUs from '../components/home/WhyUs'
 import SeoSingle from '../components/seo/SeoSingle'
 import { HomePage, HomePageDocument, HomePageQuery } from '../generated'
 import client from '../graphql/apollo-client'
+import { wrapper } from '../store'
 
 interface IHomePage {
   pageData: HomePage
