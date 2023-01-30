@@ -1,4 +1,4 @@
-import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import { Action, AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import appSlice from './slices/appSlice'
 import cartSlice from './slices/cartSlice'
@@ -10,8 +10,28 @@ const combinedReducer = combineReducers({
   modal: modalSlice,
 })
 
+// const reducer = (state: any = { app: 'init', page: 'init' }, action: AnyAction) => {
+//   switch (action.type) {
+//     case HYDRATE:
+//       if (action.payload.app === 'init') delete action.payload.app
+//       if (action.payload.page === 'init') delete action.payload.page
+//       return { ...state, ...action.payload }
+//     case 'APP':
+//       return { ...state, app: action.payload }
+//     case 'PAGE':
+//       return { ...state, page: action.payload }
+//     default:
+//       return state;
+//   }
+//   return combinedReducer(state, action)
+// }
+
 const reducer: typeof combinedReducer = (state, action) => {
   if (action.type === HYDRATE) {
+    if (action.payload.app === 'init') delete action.payload.app
+    if (action.payload.page === 'init') delete action.payload.page
+    if (action.payload.cart === 'init') delete action.payload.cart
+
     const nextState = {
       ...state,
       ...action.payload,
