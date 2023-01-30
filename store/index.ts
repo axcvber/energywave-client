@@ -21,7 +21,7 @@ const reducer: typeof combinedReducer = (state, action) => {
       return { ...state, app: action.payload }
     case 'PAGE':
       return { ...state, page: action.payload }
-    case 'cart/setCart':
+    case 'cart/getCart':
       return { ...state, cart: action.payload }
     default:
       return combinedReducer(state, action)
