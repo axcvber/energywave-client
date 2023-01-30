@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import Footer from '../footer/Footer'
 import Navbar from '../navbar/Navbar'
 import { Box } from '@chakra-ui/react'

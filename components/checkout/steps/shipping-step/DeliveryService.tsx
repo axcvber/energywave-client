@@ -7,11 +7,11 @@ import { useFormContext } from 'react-hook-form'
 const DeliveryService = () => {
   const { control } = useFormContext()
   return (
-    <Stack width={'100%'} direction={'row'} spacing={4}>
-      <Stack width={'50%'}>
+    <Stack width={'100%'} direction={{ base: 'column', md: 'row' }} spacing={4}>
+      <Stack flex={1}>
         <CitySelect />
       </Stack>
-      <Stack width={'50%'}>
+      <Stack flex={1}>
         <WarehouseSelect />
       </Stack>
     </Stack>

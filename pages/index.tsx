@@ -1,5 +1,4 @@
-import { GetStaticProps, NextPage } from 'next'
-import Categories from '../components/home/Categories'
+import { NextPage } from 'next'
 import Faq from '../components/home/Faq'
 import Hero from '../components/home/Hero'
 import TopSales from '../components/home/TopSales'
@@ -7,7 +6,6 @@ import WhyUs from '../components/home/WhyUs'
 import SeoSingle from '../components/seo/SeoSingle'
 import { HomePage, HomePageDocument, HomePageQuery } from '../generated'
 import client from '../graphql/apollo-client'
-import { wrapper } from '../store'
 
 interface IHomePage {
   pageData: HomePage

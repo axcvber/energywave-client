@@ -67,7 +67,6 @@ const CheckoutPage = () => {
   }, [cartItems.length, router])
 
   const methods = useForm<ICheckoutInputs>({
-    shouldFocusError: false,
     resolver: yupResolver(CheckoutSchema),
     defaultValues: {
       shipping: {

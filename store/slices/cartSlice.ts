@@ -1,8 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { CookieName, deleteCookie, getCookie, setCookie } from '../../hooks/useCookie'
+import { CookieName, deleteCookie, setCookie } from '../../hooks/useCookie'
 import { ComponentProductPrice, Maybe, UploadFile } from '../../generated'
-import { IncomingMessage, ServerResponse } from 'http'
 import { RootState } from '..'
 
 export interface IProduct extends IProductPayload {
@@ -34,10 +33,6 @@ export const cartSlice = createSlice({
     setCart: (state, { payload }: PayloadAction<IProduct[] | []>) => {
       state.cartItems = payload
     },
-    // getCart: (state, { payload }: PayloadAction<{ req?: IncomingMessage; res?: ServerResponse<IncomingMessage> }>) => {
-    //   const result: IProduct[] | [] = getCookie(CookieName.CARD, payload)
-    //   state.cartItems = result
-    // },
 
     addToCart: (state, { payload }: PayloadAction<IProductPayload>) => {
       const itemInCart = state.cartItems.find((item) => item.id === payload.id)

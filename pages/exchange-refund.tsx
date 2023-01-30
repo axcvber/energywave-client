@@ -1,5 +1,5 @@
 import { Container } from '@chakra-ui/react'
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import React from 'react'
 import Heading from '../components/layout/Heading'
 import Markdown from '../components/layout/Markdown'

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { ComponentHomeHero } from '../../generated'
+import { getBase64StringFromDataURL } from '../../utils/getBase64StringFromDataURL'
 
 interface IHero {
   data: ComponentHomeHero
@@ -24,7 +25,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
               as='a'
               rightIcon={<HiOutlineArrowRight fontSize={22} />}
               size={'lg'}
-              boxShadow='0px 0px 57px 5px rgba(0,187,255,0.54)'
+              boxShadow='0px 0px 57px 5px rgba(0,187,255,0.3)'
             >
               Переглянути каталог
             </Button>
@@ -57,7 +58,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
           alt='background'
           src={data.background.data!.attributes!.url}
           placeholder='blur'
-          blurDataURL={data.background.data!.attributes!.url}
+          blurDataURL={getBase64StringFromDataURL(data.background.data!.attributes!.url)}
           fill
           sizes='100vw'
           style={{
@@ -67,7 +68,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
         <Box
           sx={{
             position: 'absolute',
-            bottom: 0,
+            bottom: -2,
             left: 0,
             zIndex: 9,
             width: '100%',

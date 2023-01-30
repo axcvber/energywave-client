@@ -1,13 +1,10 @@
 import { Container, Grid, GridItem } from '@chakra-ui/react'
-import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import React from 'react'
 import GallerySlider from '../../components/product/GallerySlider'
 import {
   GetProductPropsDocument,
   GetProductPropsQuery,
   GetProductPropsQueryVariables,
-  GetProductsPathsDocument,
-  GetProductsPathsQuery,
   ProductEntity,
 } from '../../generated'
 import client from '../../graphql/apollo-client'
@@ -47,9 +44,7 @@ const CatalogSingle: React.FC<ICatalogSingle> = ({ item }) => {
   )
 }
 
-
-  export const getServerSideProps = async ({ params }: GetServerSidePropsContext<{ slug: string }>) => {
-
+export const getServerSideProps = async ({ params }: GetServerSidePropsContext<{ slug: string }>) => {
   try {
     const { data } = await client.query<GetProductPropsQuery, GetProductPropsQueryVariables>({
       query: GetProductPropsDocument,
@@ -57,8 +52,8 @@ const CatalogSingle: React.FC<ICatalogSingle> = ({ item }) => {
         slug: params?.slug,
       },
     })
-    
-    if (!data) {
+
+    if (!data.products?.data.length) {
       return {
         notFound: true,
       }
@@ -74,7 +69,6 @@ const CatalogSingle: React.FC<ICatalogSingle> = ({ item }) => {
     }
   }
 }
-
 
 // export const getStaticProps = async ({ params }: GetStaticPropsContext<{ slug: string }>) => {
 //   const { data } = await client.query<GetProductPropsQuery, GetProductPropsQueryVariables>({

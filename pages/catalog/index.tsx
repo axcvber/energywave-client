@@ -4,7 +4,7 @@ import { CategoryEntity, GetCategoriesDocument, GetCategoriesQuery, Maybe, usePr
 import DataList from '../../components/layout/data-list/DataList'
 import ProductCard from '../../components/cards/ProductCard'
 import client from '../../graphql/apollo-client'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import CatalogNavigation from '../../components/CatalogNavigation'
 import { SortValues } from '../../components/menus/SortMenu'
 import { morph } from '../../utils/morph'

@@ -90,6 +90,7 @@ const GallerySlider: React.FC<IGallerySlider> = ({ data }) => {
           style={{
             width: '100%',
             userSelect: 'none',
+            overflow: 'hidden',
           }}
           modules={[FreeMode, Navigation, Thumbs]}
           navigation={{

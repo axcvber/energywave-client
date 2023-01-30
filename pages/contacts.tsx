@@ -1,5 +1,4 @@
 import { Container, Stack, Text } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
 import { NextPage } from 'next'
 import React from 'react'
 import { BiPhoneCall } from 'react-icons/bi'

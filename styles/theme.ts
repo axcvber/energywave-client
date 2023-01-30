@@ -56,6 +56,7 @@ const theme = extendTheme({
   styles: {
     global: (props: StyleFunctionProps) => ({
       '*': {
+        WebkitTapHighlightColor: 'transparent',
         margin: 0,
         padding: 0,
       },

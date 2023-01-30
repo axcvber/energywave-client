@@ -8,11 +8,11 @@ const CourierDelivery = () => {
   const { control } = useFormContext()
 
   return (
-    <Stack width={'100%'} direction={'row'} spacing={4}>
-      <Stack width={'50%'}>
+    <Stack width={'100%'} direction={{ base: 'column', md: 'row' }} spacing={4}>
+      <Stack flex={1}>
         <StreetSelect control={control} />
       </Stack>
-      <Stack width={'50%'} direction='row' spacing={4}>
+      <Stack flex={1} direction='row' spacing={4}>
         <Field name='shipping.house' control={control} label='Будинок' />
         <Field name='shipping.body' control={control} label='Корпус' />
         <Field name='shipping.apartment' control={control} label='Квартира' />
