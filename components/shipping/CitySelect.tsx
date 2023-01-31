@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { MultiValue, SingleValue } from 'react-select'
 import { ShippingApi } from '../../api/shipping-api'
 import SearchSelect, { SelectOption } from '../form/SearchSelect'
 import { useFormContext } from 'react-hook-form'
@@ -7,10 +6,7 @@ import { useFormContext } from 'react-hook-form'
 const CitySelect = () => {
   const [options, setOptions] = useState<SelectOption[]>([])
   const [isNextPageLoading, setNextPageLoading] = useState(false)
-  const { watch, setValue, control } = useFormContext()
-
-  const selectedCity = watch('shipping.city')
-  console.log('city from CitySelect', selectedCity)
+  const { control } = useFormContext()
 
   const loadDefaultOptions = async () => {
     try {
@@ -38,12 +34,6 @@ const CitySelect = () => {
     callback(dataOptions)
   }
 
-  const handleSelectCity = (newValue: SingleValue<SelectOption> | MultiValue<SelectOption>) => {
-    console.log('newValue', newValue)
-    // setValue('city', newValue, { shouldValidate: true })
-    // setSelectedCity(newValue)
-  }
-
   return (
     <SearchSelect
       name='shipping.city'
@@ -52,7 +42,6 @@ const CitySelect = () => {
       onLoadOptions={loadOptions}
       onLoadDefaultOptions={loadDefaultOptions}
       isLoading={isNextPageLoading}
-      // onChange={handleSelectCity}
       label='Населений пункт'
     />
   )

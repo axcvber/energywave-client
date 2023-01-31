@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { SingleValue } from 'react-select'
 import { ShippingApi } from '../../api/shipping-api'
 import SearchSelect, { SelectOption } from '../form/SearchSelect'
 import { useFormContext } from 'react-hook-form'
@@ -17,8 +16,6 @@ const WarehouseSelect = () => {
       keepError: true,
       defaultValue: null,
     })
-
-    // setValue('warehouse', undefined, { shouldValidate: true, shouldDirty: false })
   }, [selectedCity, resetField])
 
   const loadDefaultOptions = async () => {
@@ -55,11 +52,6 @@ const WarehouseSelect = () => {
     }
   }
 
-  // const handleSelectWarehouse = (newValue: SingleValue<SelectOption>) => {
-  //   console.log('newValue', newValue)
-  //   setSelectedWarehouse(newValue)
-  // }
-
   return (
     <SearchSelect
       name='shipping.warehouse'
@@ -68,7 +60,6 @@ const WarehouseSelect = () => {
       onLoadOptions={loadOptions}
       onLoadDefaultOptions={loadDefaultOptions}
       isLoading={isNextPageLoading}
-      // onChange={handleSelectWarehouse}
       label='Відділення'
     />
   )

@@ -4,7 +4,6 @@ import Link from 'next/link'
 import React from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { ComponentHomeHero } from '../../generated'
-import { getBase64StringFromDataURL } from '../../utils/getBase64StringFromDataURL'
 
 interface IHero {
   data: ComponentHomeHero
@@ -56,9 +55,9 @@ const Hero: React.FC<IHero> = ({ data }) => {
         <Image
           priority
           alt='background'
-          src={data.background.data!.attributes!.url}
-          placeholder='blur'
-          blurDataURL={getBase64StringFromDataURL(data.background.data!.attributes!.url)}
+          src={data.background.data?.attributes?.url || ''}
+          // placeholder='blur'
+          // blurDataURL={data.background.data?.attributes?.url || ''}
           fill
           sizes='100vw'
           style={{
