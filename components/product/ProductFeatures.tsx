@@ -22,10 +22,10 @@ const ProductFeatures: React.FC<IProductFeatures> = ({ productName, fullOptions,
           <TabItem title={'Опис'} icon={<MdOutlineDescription />} />
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel px={1} pb={0}>
             <FullOptions productName={productName} fullOptions={fullOptions} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel px={1} pb={0}>
             <ProductDescription productName={productName} description={description} />
           </TabPanel>
         </TabPanels>
