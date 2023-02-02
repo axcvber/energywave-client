@@ -311,6 +311,27 @@ export type ComponentMainWorkingHoursInput = {
   listItem?: InputMaybe<Scalars['String']>;
 };
 
+export type ComponentProductDescription = {
+  __typename?: 'ComponentProductDescription';
+  id: Scalars['ID'];
+  pdfLink?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+};
+
+export type ComponentProductDescriptionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentProductDescriptionFiltersInput>>>;
+  not?: InputMaybe<ComponentProductDescriptionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentProductDescriptionFiltersInput>>>;
+  pdfLink?: InputMaybe<StringFilterInput>;
+  text?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentProductDescriptionInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  pdfLink?: InputMaybe<Scalars['String']>;
+  text?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentProductPreviewOptions = {
   __typename?: 'ComponentProductPreviewOptions';
   description: Scalars['String'];
@@ -553,7 +574,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutPage | Category | ComponentHomeFaq | ComponentHomeFaqItem | ComponentHomeHero | ComponentHomeTopSales | ComponentHomeWhyUs | ComponentMainIconBox | ComponentMainPhoneNumbers | ComponentMainSeo | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentProductPreviewOptions | ComponentProductPrice | Contact | DeliveryAndPayment | ExchangeAndRefund | Global | HomePage | I18NLocale | Order | PrivacyPolicy | Product | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutPage | Category | ComponentHomeFaq | ComponentHomeFaqItem | ComponentHomeHero | ComponentHomeTopSales | ComponentHomeWhyUs | ComponentMainIconBox | ComponentMainPhoneNumbers | ComponentMainSeo | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentProductDescription | ComponentProductPreviewOptions | ComponentProductPrice | Contact | DeliveryAndPayment | ExchangeAndRefund | Global | HomePage | I18NLocale | Order | PrivacyPolicy | Product | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Global = {
   __typename?: 'Global';
@@ -1081,6 +1102,7 @@ export type Product = {
   __typename?: 'Product';
   category?: Maybe<CategoryEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  description: ComponentProductDescription;
   fullOptions: Array<Maybe<ComponentProductPreviewOptions>>;
   gallerySlider: UploadFileRelationResponseCollection;
   image: UploadFileEntityResponse;
@@ -1146,6 +1168,7 @@ export type ProductFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
   category?: InputMaybe<CategoryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<ComponentProductDescriptionFiltersInput>;
   fullOptions?: InputMaybe<ComponentProductPreviewOptionsFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   inStock?: InputMaybe<IntFilterInput>;
@@ -1164,6 +1187,7 @@ export type ProductFiltersInput = {
 
 export type ProductInput = {
   category?: InputMaybe<Scalars['ID']>;
+  description?: InputMaybe<ComponentProductDescriptionInput>;
   fullOptions?: InputMaybe<Array<InputMaybe<ComponentProductPreviewOptionsInput>>>;
   gallerySlider?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   image?: InputMaybe<Scalars['ID']>;
@@ -1772,7 +1796,7 @@ export type GetProductPropsQueryVariables = Exact<{
 }>;
 
 
-export type GetProductPropsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', name: string, status: Enum_Product_Status, inStock: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, previewOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, gallerySlider: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, price: { __typename?: 'ComponentProductPrice', price: number, discountPrice?: number | null, discountStartDate?: any | null, discountEndDate?: any | null }, fullOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null }> } | null };
+export type GetProductPropsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductEntityResponseCollection', data: Array<{ __typename?: 'ProductEntity', id?: string | null, attributes?: { __typename?: 'Product', name: string, status: Enum_Product_Status, inStock: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, previewOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, gallerySlider: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, price: { __typename?: 'ComponentProductPrice', price: number, discountPrice?: number | null, discountStartDate?: any | null, discountEndDate?: any | null }, fullOptions: Array<{ __typename?: 'ComponentProductPreviewOptions', id: string, option: string, description: string } | null>, description: { __typename?: 'ComponentProductDescription', text: string, pdfLink?: string | null }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, metaImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null }> } | null };
 
 export type GetProductsPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2458,6 +2482,10 @@ export const GetProductPropsDocument = gql`
           id
           option
           description
+        }
+        description {
+          text
+          pdfLink
         }
         seo {
           metaTitle

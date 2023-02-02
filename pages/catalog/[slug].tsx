@@ -35,7 +35,11 @@ const CatalogSingle: React.FC<ICatalogSingle> = ({ item }) => {
             <ProductSidebar item={item} />
           </GridItem>
           <GridItem>
-            <ProductFeatures productName={item.attributes!.name} features={item.attributes!.fullOptions} />
+            <ProductFeatures
+              productName={item.attributes!.name}
+              fullOptions={item.attributes!.fullOptions}
+              description={item.attributes!.description}
+            />
           </GridItem>
         </Grid>
         <SimilarProducts productId={item.id as string} />

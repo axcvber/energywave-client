@@ -75,7 +75,7 @@ const MobileMenu: React.FC<{ isScrolledNav?: boolean }> = ({ isScrolledNav = tru
               {navLinks.map((item) => {
                 return (
                   <ListItem key={item.path} onClick={onCloseMenu}>
-                    <Link href={item.path} passHref>
+                    <Link href={item.path} passHref legacyBehavior>
                       <Box
                         sx={{
                           display: 'block',

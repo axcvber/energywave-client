@@ -39,6 +39,10 @@ query GetProductProps($slug: String) {
           option
           description
         }
+        description {
+          text
+          pdfLink
+        }
         seo {
           metaTitle
           metaDescription

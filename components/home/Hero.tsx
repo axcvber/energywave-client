@@ -24,7 +24,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
               as='a'
               rightIcon={<HiOutlineArrowRight fontSize={22} />}
               size={'lg'}
-              boxShadow='0px 0px 57px 5px rgba(0,187,255,0.3)'
+              boxShadow='0px 0px 57px 5px rgba(0,187,255,0.2)'
             >
               Переглянути каталог
             </Button>
@@ -41,8 +41,8 @@ const Hero: React.FC<IHero> = ({ data }) => {
           zIndex: -1,
           '&:after': {
             content: '""',
-            background: 'rgba(0,0,0,0.5)',
-            // backdropFilter: 'blur(2px)',
+            background: 'rgba(0,38,51,0.6)',
+            backdropFilter: 'blur(1px)',
             display: 'block',
             position: 'absolute',
             top: 0,
@@ -55,9 +55,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
         <Image
           priority
           alt='background'
-          src={data.background.data?.attributes?.url || ''}
-          // placeholder='blur'
-          // blurDataURL={data.background.data?.attributes?.url || ''}
+          src={data.background.data!.attributes!.url}
           fill
           sizes='100vw'
           style={{

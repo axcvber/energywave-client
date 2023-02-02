@@ -47,17 +47,15 @@ const ProductCard: React.FC<IProductCard> = ({ item }) => {
       <Link href={`/catalog/${item.attributes?.slug}`} passHref legacyBehavior>
         <Box as={'a'} display='block'>
           <Image
+            priority
             width={280}
             height={280}
             src={item.attributes!.image.data!.attributes!.url}
-            blurDataURL={item.attributes!.image.data!.attributes!.url}
             alt={item.attributes!.image.data!.attributes!.alternativeText || 'product'}
-            placeholder='blur'
             sizes='100vw'
             style={{
               width: '100%',
-              maxHeight: '280px',
-              objectFit: 'contain',
+              height: 'auto',
             }}
           />
         </Box>

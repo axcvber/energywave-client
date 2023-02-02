@@ -17,7 +17,7 @@ const ContactNumber = () => {
           sx={{
             fontSize: { base: 16, sm: 15 },
             'svg': {
-              fontSize: { base: 16, sm: 15 },
+              fontSize: 18,
             },
           }}
         >

@@ -19,7 +19,7 @@ const Markdown: React.FC<IMarkdown> = ({ content }) => {
           color: 'gray.600',
         },
         'h1,h2,h3,h4,h5,h6': {
-          color: 'brand.300',
+          color: 'brand.400',
         },
       }}
       components={{
