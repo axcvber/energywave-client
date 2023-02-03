@@ -2,13 +2,9 @@ import axios from 'axios'
 
 const instance = axios.create({
   baseURL: process.env.SHIPPING_SERVICE_API,
-  headers: {
-    'apiKey': process.env.SHIPPING_SERVICE_API_KEY,
-    'Content-Type': 'application/json',
+  data: {
+    apiKey: process.env.SHIPPING_SERVICE_API_KEY,
   },
-  // data: {
-  //   // apiKey: process.env.SHIPPING_SERVICE_API_KEY,
-  // },
 })
 
 interface IGetCitiesParams {
@@ -34,7 +30,6 @@ export const ShippingApi = {
     const { data } = await instance<{ data: ICity[] }>({
       method: 'POST',
       data: {
-        // apiKey: process.env.SHIPPING_SERVICE_API_KEY,
         modelName: 'Address',
         calledMethod: 'getCities',
         methodProperties: {
@@ -50,7 +45,6 @@ export const ShippingApi = {
     const { data } = await instance<{ data: IWarehouse[] }>({
       method: 'POST',
       data: {
-        // apiKey: process.env.SHIPPING_SERVICE_API_KEY,
         modelName: 'Address',
         calledMethod: 'getWarehouses',
         methodProperties: {
@@ -67,7 +61,6 @@ export const ShippingApi = {
     const { data } = await instance<{ data: IWarehouse[] }>({
       method: 'POST',
       data: {
-        // apiKey: process.env.SHIPPING_SERVICE_API_KEY,
         modelName: 'Address',
         calledMethod: 'getStreet',
         methodProperties: {

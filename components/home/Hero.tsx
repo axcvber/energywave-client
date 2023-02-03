@@ -41,7 +41,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
           zIndex: -1,
           '&:after': {
             content: '""',
-            background: 'rgba(0,38,51,0.6)',
+            background: 'rgba(0,38,51,0.5)',
             backdropFilter: 'blur(1px)',
             display: 'block',
             position: 'absolute',

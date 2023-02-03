@@ -91,7 +91,7 @@ const theme = extendTheme({
           background: `brand.500 !important`,
         },
         '.peg': {
-          boxShadow: `0 0 10px #00BCFF, 0 0 5px #00BCFF !important`,
+          boxShadow: `0 0 10px #1B7FE4, 0 0 5px #1B7FE4 !important`,
         },
       },
     }),
